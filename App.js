@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, View } from 'react-native'
-import CodeEditArea from './app/components/Code.js'
+import { StyleSheet, SafeAreaView } from 'react-native'
+import CodeEditArea from './app/components/Editor.js'
 
 const App = () => {
   return (
@@ -12,10 +12,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#222',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   }
 })
 

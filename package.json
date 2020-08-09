@@ -5,21 +5,24 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "bundlecm": "node app/src/bundle_codemirror.js"
   },
   "dependencies": {
     "@react-native-community/hooks": "^2.6.0",
     "expo": "~38.0.8",
     "expo-status-bar": "^1.0.2",
+    "highlight.js": "^10.1.2",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
-    "react-native-syntax-highlighter": "^2.1.0",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "react-native-webview": "9.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "babel-preset-expo": "~8.1.0",
+    "codemirror": "^5.56.0",
     "eslint": "^7.6.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
@@ -27,7 +30,11 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-native": "^3.8.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "glob": "^7.1.6",
+    "path": "^0.12.7",
+    "uglify-js": "^3.10.1",
+    "uglifycss": "^0.0.29"
   },
   "private": true
 }
