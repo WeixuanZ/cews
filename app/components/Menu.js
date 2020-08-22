@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Picker } from '@react-native-community/picker'
 
-
-export default class Menu extends React.Component {
-	constructor(props) {
-		super (props);
-
-		this.state = {
-			selectedTheme: 'eclipse'
-		}
-	}
-	render() {
-		return (
-			<Picker
-			  selectedValue={this.state.selectedTheme}
-			  style={{height: 50, width: 100}}
-			  onValueChange={(itemValue, itemIndex) => {
-			    { this.setState({selectedTheme: itemValue}); this.props.getTheme(itemValue) } } 
-			  }>
-			  
-			  <Picker.Item label="Eclipse" value="eclipse" />
-			  <Picker.Item label="Dracula" value="dracula" />
-			</Picker>
-		)
-	}
+const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
+  return (
+    <View style={styles.container}>
+      <Picker
+        style={styles.picker}
+        selectedValue={theme}
+        onValueChange={handleChangeTheme}
+      >
+        <Picker.Item label="Eclipse" value="eclipse" />
+        <Picker.Item label="Dracula" value="dracula" />
+      </Picker>
+    </View>
+  )
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 0,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  picker: {
+    flex: 1
+  }
+})
+
+export default Menu
