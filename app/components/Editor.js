@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 // import hljs from 'highlight.js'
@@ -43,13 +43,11 @@ function createHTML(theme, mode) {
 `
 }
 
-const CodeEditArea = (props) => {
-  const [currentTheme, setTheme] = useState(props.theme)
-  const [currentMode, setMode] = useState('javascript')
+const CodeEditArea = ({ theme, mode }) => {
   return (
     <View style={styles.container}>
       <WebView
-        source={{ html: createHTML(currentTheme, currentMode) }}
+        source={{ html: createHTML(theme, mode) }}
         style={styles.webView}
         scrollEnabled={false}
       />

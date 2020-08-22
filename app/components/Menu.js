@@ -1,40 +1,39 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Picker } from '@react-native-community/picker'
 
+import cmThemes from '../assets/cmThemes.json'
+import cmModes from '../assets/cmModes.json'
 
-export default class Menu extends React.Component {
-	constructor(props) {
-		super (props);
-
-		this.state = {
-			selectedTheme: 'eclipse'
-		}
-	}
-	render() {
-		return (
-			<View style = {styles.container}>
-				<View style = {{flexDirection: "row", AlignItems: 'center'}}>
-					
-					<Picker
-					  selectedValue={this.state.selectedTheme}
-					  style={{flex:0.5, top:10, transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }]}}
-					  onValueChange={(itemValue, itemIndex) => {
-					    { this.setState({selectedTheme: itemValue}); this.props.getTheme(itemValue) } } 
-					  }>
-					  
-					  <Picker.Item label="Eclipse" value="eclipse" />
-					  <Picker.Item label="Dracula" value="dracula" />
-					</Picker>
-				</View>
-			</View>
-		)
-	}
+const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
+  return (
+    <View style={styles.container}>
+      <Picker
+        style={styles.picker}
+        mode="dropdown"
+        selectedValue={theme}
+        onValueChange={handleChangeTheme}
+      >
+        {Object.keys(cmThemes).map((el) => (
+          <Picker.Item
+            label={el.charAt(0).toUpperCase() + el.slice(1)}
+            value={el}
+          />
+        ))}
+      </Picker>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.06
+    flex: 0,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  picker: {
+    flex: 1
   }
 })
 
+export default Menu

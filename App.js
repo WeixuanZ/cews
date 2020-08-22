@@ -3,20 +3,19 @@ import { StyleSheet, SafeAreaView } from 'react-native'
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
 
-
-
-
-
 const App = () => {
-  const [theme, SetTheme] = useState('eclipse');
+  const [theme, setTheme] = useState('eclipse')
+  const [mode, setMode] = useState('javascript')
 
-  const getTheme = (selectedTheme) => {
-    SetTheme(theme);
-  }
   return (
     <SafeAreaView style={styles.container}>
-      <Menu getTheme = {getTheme} />
-      <CodeEditArea theme = {theme}/>
+      <Menu
+        theme={theme}
+        mode={mode}
+        handleChangeTheme={setTheme}
+        handleChangeMode={setMode}
+      />
+      <CodeEditArea theme={theme} mode={mode} />
     </SafeAreaView>
   )
 }
