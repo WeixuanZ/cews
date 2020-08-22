@@ -17,7 +17,7 @@ export default class Menu extends React.Component {
 			  selectedValue={this.state.selectedTheme}
 			  style={{height: 50, width: 100}}
 			  onValueChange={(itemValue, itemIndex) => {
-			    { this.setState({selectedTheme: itemValue}); this.props.getTheme(itemValue); console.log('test') } } 
+			    { this.setState({selectedTheme: itemValue}); this.props.getTheme(itemValue) } } 
 			  }>
 			  
 			  <Picker.Item label="Eclipse" value="eclipse" />

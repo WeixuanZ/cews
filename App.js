@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
 
-var theme = 'eclipse';
 
-const getTheme = (selectedTheme) => {
-	theme = selectedTheme;
-	console.log(theme)
-}
 
 
 
 const App = () => {
+  const [theme, SetTheme] = useState('eclipse');
+
+  const getTheme = (selectedTheme) => {
+    SetTheme(theme);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Menu getTheme = {getTheme} />
