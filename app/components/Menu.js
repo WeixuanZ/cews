@@ -21,6 +21,19 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
           />
         ))}
       </Picker>
+      <Picker
+        style={styles.picker}
+        mode="dropdown"
+        selectedValue={mode}
+        onValueChange={handleChangeMode}
+      >
+        {Object.keys(cmModes).map((el) => (
+          <Picker.Item
+            label={el.charAt(0).toUpperCase() + el.slice(1)}
+            value={el}
+          />
+        ))}
+      </Picker>
     </View>
   )
 }
@@ -29,7 +42,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 0,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    top: 15
   },
   picker: {
     flex: 1
