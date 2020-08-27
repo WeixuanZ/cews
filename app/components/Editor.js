@@ -5,7 +5,7 @@ import WebView from 'react-native-webview'
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
-import { getColor } from './getBackground.js'
+import { getBackground, getText } from './getColours.js'
 
 
 function createHTML(theme, mode) {
@@ -28,9 +28,9 @@ function createHTML(theme, mode) {
   ${cmThemes[theme]}
 </style>
 </head>
-<body style="background-color:${getColor(theme)}">
-  <h3>Theme: ${theme}</h3>
-  <h3>Mode: ${mode}</h3>
+<body style="background-color:${getBackground(theme)}">
+  <h3 style="color:${getText(theme)}">Theme: ${theme}</h3>
+  <h3 style="color:${getText(theme)}">Mode: ${mode}</h3>
   <script>
   var myCodeMirror = CodeMirror(document.body, {
     lineNumbers: true,

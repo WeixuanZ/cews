@@ -4,6 +4,7 @@ import { Picker } from '@react-native-community/picker'
 
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
+import { getText } from './getColours.js'
 
 const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
   return (
@@ -13,6 +14,7 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
         mode="dropdown"
         selectedValue={theme}
         onValueChange={handleChangeTheme}
+        itemStyle = {{ color: getText(theme) }}
       >
         {Object.keys(cmThemes).map((el) => (
           <Picker.Item
