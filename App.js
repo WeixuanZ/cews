@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
+import { getColor } from './app/components/getBackground.js'
 
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
   const [mode, setMode] = useState('javascript')
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{flex: 1, backgroundColor: getColor(theme)}}>
       <Menu
         theme={theme}
         mode={mode}

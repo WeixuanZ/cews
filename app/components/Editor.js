@@ -5,6 +5,8 @@ import WebView from 'react-native-webview'
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
+import { getColor } from './getBackground.js'
+
 
 function createHTML(theme, mode) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
@@ -26,7 +28,7 @@ function createHTML(theme, mode) {
   ${cmThemes[theme]}
 </style>
 </head>
-<body>
+<body style="background-color:${getColor(theme)}">
   <h3>Theme: ${theme}</h3>
   <h3>Mode: ${mode}</h3>
   <script>
