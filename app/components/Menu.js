@@ -4,6 +4,7 @@ import { Picker } from '@react-native-community/picker'
 
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
+import cmColors from '../assets/cmColors.json'
 
 const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
   return (
@@ -13,11 +14,13 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
         mode="dropdown"
         selectedValue={theme}
         onValueChange={handleChangeTheme}
+        itemStyle={{ color: cmColors.color[theme] }}
       >
         {Object.keys(cmThemes).map((el) => (
           <Picker.Item
             label={el.charAt(0).toUpperCase() + el.slice(1)}
             value={el}
+            key={el}
           />
         ))}
       </Picker>
@@ -26,11 +29,13 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
         mode="dropdown"
         selectedValue={mode}
         onValueChange={handleChangeMode}
+        itemStyle={{ color: cmColors.color[theme] }}
       >
         {Object.keys(cmModes).map((el) => (
           <Picker.Item
             label={el.charAt(0).toUpperCase() + el.slice(1)}
             value={el}
+            key={el}
           />
         ))}
       </Picker>
