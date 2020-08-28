@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
-import { getColor } from './app/components/getColours.js'
+import { getColor, getBackground } from './app/components/getColours.js'
 
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
