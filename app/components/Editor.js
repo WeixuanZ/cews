@@ -2,11 +2,11 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 // import hljs from 'highlight.js'
+
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
-import { getBackground, getText } from './getColours.js'
-
+import cmColors from '../assets/cmColors.json'
 
 function createHTML(theme, mode) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
@@ -14,7 +14,7 @@ function createHTML(theme, mode) {
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <script type="text/javascript">
   ${cmScripts.js}
 </script>
@@ -22,19 +22,34 @@ function createHTML(theme, mode) {
   ${cmModes[mode]}
 </script>
 <style type="text/css">
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    color:${cmColors.color[theme]};
+    background-color:${cmColors.backgroundColor[theme]};
+  }
   ${cmScripts.css}
+  .CodeMirror {
+    font-size: 12pt;
+    line-height: 1.6;
+    width: 100%;
+    height: 100%;
+  }
 </style>
 <style type="text/css">
   ${cmThemes[theme]}
 </style>
 </head>
-<body style="background-color:${getBackground(theme)}">
-  <h3 style="color:${getText(theme)}">Theme: ${theme}</h3>
-  <h3 style="color:${getText(theme)}">Mode: ${mode}</h3>
+<body>
+  <h3>Theme: ${theme}</h3>
+  <h3>Mode: ${mode}</h3>
   <script>
   var myCodeMirror = CodeMirror(document.body, {
     lineNumbers: true,
     tabSize: 2,
+    autocapitalize: false,
+    inputStyle: 'contenteditable',
     value: 'console.log("Hello, World");',
     theme: '${theme}',
     mode: '${mode}'
@@ -62,8 +77,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   webView: {
-    width: '100%',
-    height: '100%'
+    flex: 1
   }
 })
 
