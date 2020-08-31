@@ -6,6 +6,9 @@ import Menu from './app/components/Menu.js'
 
 import cmColors from './app/assets/cmColors.json'
 
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
   const [mode, setMode] = useState('javascript')
