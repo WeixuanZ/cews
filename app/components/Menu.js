@@ -1,47 +1,62 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Picker } from '@react-native-community/picker'
 
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 
-import SearchableFlatlist from "searchable-flatlist";
+import SearchableList from "./searchable-flatlist.js";
 
-const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
+import { ListItem, Icon } from 'react-native-elements';
+
+import { useNavigation } from '@react-navigation/native'
+
+
+const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode, navigation }) => {
   return (
-    <View style={styles.container}>
-      <Picker
-        style={styles.picker}
-        mode="dropdown"
-        selectedValue={theme}
-        onValueChange={handleChangeTheme}
-        itemStyle={{ color: cmColors.color[theme] }}
-      >
-        {Object.keys(cmThemes).map((el) => (
-          <Picker.Item
-            label={el.charAt(0).toUpperCase() + el.slice(1)}
-            value={el}
-            key={el}
-          />
-        ))}
-      </Picker>
-      <Picker
-        style={styles.picker}
-        mode="dropdown"
-        selectedValue={mode}
-        onValueChange={handleChangeMode}
-        itemStyle={{ color: cmColors.color[theme] }}
-      >
-        {Object.keys(cmModes).map((el) => (
-          <Picker.Item
-            label={el.charAt(0).toUpperCase() + el.slice(1)}
-            value={el}
-            key={el}
-          />
-        ))}
-      </Picker>
-    </View>
+  <View>
+    <TouchableOpacity>
+      <ListItem onPress={() => navigation.navigate('Set Editor Theme')}>
+        <ListItem.Content style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+          <ListItem.Title style={{flex: 3}}>
+            {"Editor Theme"}
+          </ListItem.Title>
+          <ListItem.Subtitle style={{flex: 1}}>
+            {theme.toUpperCase().substr(0,1) + theme.substr(1)}
+          </ListItem.Subtitle>
+          <Icon alignText='right' 
+            name='chevron-right'
+            type='material'
+            color='#00aced' />
+        </ListItem.Content>
+      </ListItem>
+    </TouchableOpacity>
+    <View
+        style={{
+          height: 0.6,
+          width: "100%",
+          backgroundColor: "#CED0CE",
+          marginLeft: "0%"
+        }}
+      />
+    <TouchableOpacity>
+      <ListItem onPress={() => navigation.navigate('Set Editor Language')}>
+        <ListItem.Content style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+          <ListItem.Title style={{flex: 3}}>
+            {"Editor Language"}
+          </ListItem.Title>
+          <ListItem.Subtitle style={{flex: 1}}>
+            {mode.toUpperCase().substr(0,1) + mode.substr(1)}
+          </ListItem.Subtitle>
+          <Icon alignText='right' 
+            name='chevron-right'
+            type='material'
+            color='#00aced' />
+        </ListItem.Content>
+      </ListItem>
+    </TouchableOpacity>
+  </View>
   )
 }
 
