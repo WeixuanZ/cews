@@ -6,6 +6,8 @@ import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 
+import SearchableFlatlist from "searchable-flatlist";
+
 const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
   return (
     <View style={styles.container}>

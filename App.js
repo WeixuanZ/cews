@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, SafeAreaView } from 'react-native'
+import { Button, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
@@ -8,6 +8,9 @@ import cmColors from './app/assets/cmColors.json'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+
+import { Icon } from 'react-native-elements'
+
 
 const Stack = createStackNavigator();
 
@@ -27,11 +30,14 @@ const App = () => {
           <Stack.Screen name="Editor"  options={({ navigation }) => ({
               title: 'Editor',
               headerRight: () => (
-                <Button
+                <TouchableOpacity
                   onPress={() => navigation.navigate('Settings')}
-                  title="settings"
-                  type="material"
-                />
+                >
+                  <Icon
+                    name="settings"
+                    type="material"
+                  />
+                </TouchableOpacity>
               ),
             })}
           >
