@@ -52,10 +52,10 @@ const App = () => {
             {(props) => <Menu theme={theme} mode={mode} handleChangeTheme={setTheme} handleChangeMode={setMode} navigation = {props.navigation}/>}
           </Stack.Screen>
           <Stack.Screen name="Set Editor Theme">
-            {(props) => <SearchableList data={Object.keys(cmColors.backgroundColor)} />}
+            {(props) => <SearchableList data={Object.keys(cmColors.backgroundColor)} value={theme} changeValue={setTheme} />}
           </Stack.Screen>
           <Stack.Screen name="Set Editor Language">
-            {(props) => <SearchableList data={Object.keys(cmModes)} />}
+            {(props) => <SearchableList data={Object.keys(cmModes)} value={mode} changeValue={setMode} />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>

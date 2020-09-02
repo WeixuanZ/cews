@@ -4,6 +4,9 @@ import { SearchBar, ListItem } from 'react-native-elements'
 
 import cmColors from '../assets/cmColors.json'
 
+import { Icon } from 'react-native-elements'
+
+
 
 function SearchHeader(currData, setData, initialData, search, setSearch) {
   return (      
@@ -40,24 +43,18 @@ function renderSeparator() {
     );
   };
 
-function renderTick({item, currTheme, currMode}) {
-	if(item == currTheme || item == currMode) {
+function renderTick() {
 		return (
 		<Icon alignText='right' 
-            name='chevron-right'
+            name='done'
             type='material'
-            color='#00aced' />
+            color='#32CD32'
+            size={21} />
 		)
-	}
-
-	else {
-		return;
-	}
-	
 }
 
-function SearchableList (props) {
-	const initialData = props.data;
+function SearchableList ({data, value, changeValue}) {
+	const initialData = data;
 	const [currData, setData] = useState(initialData);
 	const [search, setSearch] = useState('')
 	return (
@@ -68,7 +65,9 @@ function SearchableList (props) {
 		      <ListItem              
 		        title={item}
 		        containerStyle={{ borderBottomWidth: 0}} 
+		        onPress={() => changeValue(item)}
 		      >
+		      {item == value && renderTick()}
 		      </ListItem>
 
 		     )}          

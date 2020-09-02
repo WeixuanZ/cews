@@ -22,7 +22,7 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode, navigation }) 
           <ListItem.Title style={{flex: 3}}>
             {"Editor Theme"}
           </ListItem.Title>
-          <ListItem.Subtitle style={{flex: 1}}>
+          <ListItem.Subtitle style={{flex: 2.8}}>
             {theme.toUpperCase().substr(0,1) + theme.substr(1)}
           </ListItem.Subtitle>
           <Icon alignText='right' 
@@ -46,7 +46,7 @@ const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode, navigation }) 
           <ListItem.Title style={{flex: 3}}>
             {"Editor Language"}
           </ListItem.Title>
-          <ListItem.Subtitle style={{flex: 1}}>
+          <ListItem.Subtitle style={{flex: 2.8}}>
             {mode.toUpperCase().substr(0,1) + mode.substr(1)}
           </ListItem.Subtitle>
           <Icon alignText='right' 
