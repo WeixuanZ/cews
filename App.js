@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native'
+import {
+  Button,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity
+} from 'react-native'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
@@ -12,12 +17,9 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { Icon } from 'react-native-elements'
 
-import SearchableList from "./app/components/searchable-flatlist.js";
+import SearchableList from './app/components/searchable-flatlist.js'
 
-
-
-const Stack = createStackNavigator();
-
+const Stack = createStackNavigator()
 
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
@@ -32,30 +34,49 @@ const App = () => {
     >
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Editor"  options={({ navigation }) => ({
+          <Stack.Screen
+            name="Editor"
+            options={({ navigation }) => ({
               title: 'Editor',
               headerRight: () => (
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Settings')}
                 >
-                  <Icon
-                    name="settings"
-                    type="material"
-                  />
+                  <Icon name="settings" type="material" />
                 </TouchableOpacity>
-              ),
+              )
             })}
           >
             {(props) => <CodeEditArea theme={theme} mode={mode} />}
           </Stack.Screen>
           <Stack.Screen name="Settings">
-            {(props) => <Menu theme={theme} mode={mode} handleChangeTheme={setTheme} handleChangeMode={setMode} navigation = {props.navigation}/>}
+            {(props) => (
+              <Menu
+                theme={theme}
+                mode={mode}
+                handleChangeTheme={setTheme}
+                handleChangeMode={setMode}
+                navigation={props.navigation}
+              />
+            )}
           </Stack.Screen>
           <Stack.Screen name="Set Editor Theme">
-            {(props) => <SearchableList data={Object.keys(cmColors.backgroundColor)} value={theme} changeValue={setTheme} />}
+            {(props) => (
+              <SearchableList
+                data={Object.keys(cmColors.backgroundColor)}
+                value={theme}
+                changeValue={setTheme}
+              />
+            )}
           </Stack.Screen>
           <Stack.Screen name="Set Editor Language">
-            {(props) => <SearchableList data={Object.keys(cmModes)} value={mode} changeValue={setMode} />}
+            {(props) => (
+              <SearchableList
+                data={Object.keys(cmModes)}
+                value={mode}
+                changeValue={setMode}
+              />
+            )}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
