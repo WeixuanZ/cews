@@ -11,11 +11,11 @@ const Menu = ({
   handleChangeTheme,
   handleChangeMode
 }) => {
-  const SettingItem = ({ title, subtitle }) => (
-    <ListItem onPress={() => navigation.navigate(title)} bottomDivider={true}>
+  const SettingItem = ({ title, subtitle, target }) => (
+    <ListItem onPress={() => navigation.navigate(target)} bottomDivider={true}>
       <ListItem.Content style={styles.listItem}>
-        <ListItem.Title>{title}</ListItem.Title>
-        <ListItem.Subtitle>{subtitle}</ListItem.Subtitle>
+        <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
+        <ListItem.Subtitle style={styles.listContent}>{subtitle}</ListItem.Subtitle>
         <ListItem.Chevron color={colors.primary} />
       </ListItem.Content>
     </ListItem>
@@ -25,14 +25,16 @@ const Menu = ({
     <View>
       <TouchableOpacity>
         <SettingItem
-          title="Set Editor Theme"
+          title="Theme"
           subtitle={theme[0].toUpperCase() + theme.slice(1)}
+          target="Set Editor Theme"
         />
       </TouchableOpacity>
       <TouchableOpacity>
         <SettingItem
-          title="Set Editor Language"
+          title="Language"
           subtitle={mode[0].toUpperCase() + mode.slice(1)}
+          target="Set Editor Language"
         />
       </TouchableOpacity>
     </View>
@@ -44,6 +46,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  listContent: {
+    flex: 1
   }
 })
 
