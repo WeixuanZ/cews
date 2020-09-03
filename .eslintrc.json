@@ -5,7 +5,8 @@
     "extends": [
         "eslint:recommended",
         "standard",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -28,6 +29,7 @@
         "no-multiple-empty-lines": "warn",
         "object-curly-spacing": "off",
         "comma-dangle": "warn",
+        "space-before-function-paren": "off",
         "react/prop-types": "off",
         "react-native/no-unused-styles": "error",
         "react-native/split-platform-components": "error",

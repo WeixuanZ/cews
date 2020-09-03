@@ -1,23 +1,15 @@
 import React, { useState } from 'react'
-import {
-  Button,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity
-} from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { Icon } from 'react-native-elements'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
+import SearchableList from './app/components/SearchableList.js'
 
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
-
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-
-import { Icon } from 'react-native-elements'
-
-import SearchableList from './app/components/searchable-flatlist.js'
 
 const Stack = createStackNavigator()
 
@@ -26,7 +18,7 @@ const App = () => {
   const [mode, setMode] = useState('javascript')
 
   return (
-    <SafeAreaView
+    <View
       style={[
         styles.container,
         { backgroundColor: cmColors.backgroundColor[theme] }
@@ -38,11 +30,13 @@ const App = () => {
             name="Editor"
             options={({ navigation }) => ({
               title: 'Editor',
+              // eslint-disable-next-line react/display-name
               headerRight: () => (
                 <TouchableOpacity
+                  style={styles.headerBtn}
                   onPress={() => navigation.navigate('Settings')}
                 >
-                  <Icon name="settings" type="material" />
+                  <Icon size={20} name="sliders-h" type="font-awesome-5" />
                 </TouchableOpacity>
               )
             })}
@@ -54,9 +48,9 @@ const App = () => {
               <Menu
                 theme={theme}
                 mode={mode}
+                navigation={props.navigation}
                 handleChangeTheme={setTheme}
                 handleChangeMode={setMode}
-                navigation={props.navigation}
               />
             )}
           </Stack.Screen>
@@ -65,7 +59,7 @@ const App = () => {
               <SearchableList
                 data={Object.keys(cmColors.backgroundColor)}
                 value={theme}
-                changeValue={setTheme}
+                handleChangeValue={setTheme}
               />
             )}
           </Stack.Screen>
@@ -74,19 +68,22 @@ const App = () => {
               <SearchableList
                 data={Object.keys(cmModes)}
                 value={mode}
-                changeValue={setMode}
+                handleChangeValue={setMode}
               />
             )}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  headerBtn: {
+    margin: 10
   }
 })
 

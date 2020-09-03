@@ -1,95 +1,49 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Picker } from '@react-native-community/picker'
+import { ListItem } from 'react-native-elements'
 
-import cmThemes from '../assets/cmThemes.json'
-import cmModes from '../assets/cmModes.json'
-import cmColors from '../assets/cmColors.json'
-
-import SearchableList from './searchable-flatlist.js'
-
-import { ListItem, Icon } from 'react-native-elements'
-
-import { useNavigation } from '@react-navigation/native'
+import colors from '../config/colors.js'
 
 const Menu = ({
   theme,
   mode,
+  navigation,
   handleChangeTheme,
-  handleChangeMode,
-  navigation
+  handleChangeMode
 }) => {
+  const SettingItem = ({ title, subtitle }) => (
+    <ListItem onPress={() => navigation.navigate(title)} bottomDivider={true}>
+      <ListItem.Content style={styles.listItem}>
+        <ListItem.Title>{title}</ListItem.Title>
+        <ListItem.Subtitle>{subtitle}</ListItem.Subtitle>
+        <ListItem.Chevron color={colors.primary} />
+      </ListItem.Content>
+    </ListItem>
+  )
+
   return (
     <View>
       <TouchableOpacity>
-        <ListItem onPress={() => navigation.navigate('Set Editor Theme')}>
-          <ListItem.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <ListItem.Title style={{ flex: 3 }}>
-              {'Editor Theme'}
-            </ListItem.Title>
-            <ListItem.Subtitle style={{ flex: 2.8 }}>
-              {theme.toUpperCase().substr(0, 1) + theme.substr(1)}
-            </ListItem.Subtitle>
-            <Icon
-              alignText="right"
-              name="chevron-right"
-              type="material"
-              color="#00aced"
-            />
-          </ListItem.Content>
-        </ListItem>
+        <SettingItem
+          title="Set Editor Theme"
+          subtitle={theme[0].toUpperCase() + theme.slice(1)}
+        />
       </TouchableOpacity>
-      <View
-        style={{
-          height: 0.6,
-          width: '100%',
-          backgroundColor: '#CED0CE',
-          marginLeft: '0%'
-        }}
-      />
       <TouchableOpacity>
-        <ListItem onPress={() => navigation.navigate('Set Editor Language')}>
-          <ListItem.Content
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            <ListItem.Title style={{ flex: 3 }}>
-              {'Editor Language'}
-            </ListItem.Title>
-            <ListItem.Subtitle style={{ flex: 2.8 }}>
-              {mode.toUpperCase().substr(0, 1) + mode.substr(1)}
-            </ListItem.Subtitle>
-            <Icon
-              alignText="right"
-              name="chevron-right"
-              type="material"
-              color="#00aced"
-            />
-          </ListItem.Content>
-        </ListItem>
+        <SettingItem
+          title="Set Editor Language"
+          subtitle={mode[0].toUpperCase() + mode.slice(1)}
+        />
       </TouchableOpacity>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 0,
+  listItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    top: 15
-  },
-  picker: {
-    flex: 1
+    justifyContent: 'space-between'
   }
 })
 
