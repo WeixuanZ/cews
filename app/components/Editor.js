@@ -42,8 +42,6 @@ function createHTML(theme, mode) {
 </style>
 </head>
 <body>
-  <h3>Theme: ${theme}</h3>
-  <h3>Mode: ${mode}</h3>
   <script>
   var myCodeMirror = CodeMirror(document.body, {
     lineNumbers: true,

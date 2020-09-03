@@ -1,56 +1,56 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Picker } from '@react-native-community/picker'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { ListItem } from 'react-native-elements'
 
-import cmThemes from '../assets/cmThemes.json'
-import cmModes from '../assets/cmModes.json'
-import cmColors from '../assets/cmColors.json'
+import colors from '../config/colors.js'
 
-const Menu = ({ theme, mode, handleChangeTheme, handleChangeMode }) => {
+const Menu = ({
+  theme,
+  mode,
+  navigation,
+  handleChangeTheme,
+  handleChangeMode
+}) => {
+  const SettingItem = ({ title, subtitle, target }) => (
+    <TouchableOpacity>
+      <ListItem
+        onPress={() => navigation.navigate(target)}
+        bottomDivider={true}
+      >
+        <ListItem.Content style={styles.listItem}>
+          <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
+          <ListItem.Subtitle style={styles.listContent}>
+            {subtitle}
+          </ListItem.Subtitle>
+          <ListItem.Chevron color={colors.primary} />
+        </ListItem.Content>
+      </ListItem>
+    </TouchableOpacity>
+  )
+
   return (
-    <View style={styles.container}>
-      <Picker
-        style={styles.picker}
-        mode="dropdown"
-        selectedValue={theme}
-        onValueChange={handleChangeTheme}
-        itemStyle={{ color: cmColors.color[theme] }}
-      >
-        {Object.keys(cmThemes).map((el) => (
-          <Picker.Item
-            label={el.charAt(0).toUpperCase() + el.slice(1)}
-            value={el}
-            key={el}
-          />
-        ))}
-      </Picker>
-      <Picker
-        style={styles.picker}
-        mode="dropdown"
-        selectedValue={mode}
-        onValueChange={handleChangeMode}
-        itemStyle={{ color: cmColors.color[theme] }}
-      >
-        {Object.keys(cmModes).map((el) => (
-          <Picker.Item
-            label={el.charAt(0).toUpperCase() + el.slice(1)}
-            value={el}
-            key={el}
-          />
-        ))}
-      </Picker>
+    <View>
+      <SettingItem
+        title="Theme"
+        subtitle={theme[0].toUpperCase() + theme.slice(1)}
+        target="Set Editor Theme"
+      />
+      <SettingItem
+        title="Language"
+        subtitle={mode[0].toUpperCase() + mode.slice(1)}
+        target="Set Editor Language"
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 0,
+  listItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    top: 15
+    justifyContent: 'space-between'
   },
-  picker: {
+  listContent: {
     flex: 1
   }
 })
