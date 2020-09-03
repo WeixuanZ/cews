@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
@@ -33,7 +33,7 @@ const App = () => {
           <Stack.Screen
             name="Editor"
             options={({ navigation }) => ({
-              title: 'Editor',
+              title: '',
               // eslint-disable-next-line react/display-name
               headerRight: () => (
                 <MaterialHeaderButtons>
