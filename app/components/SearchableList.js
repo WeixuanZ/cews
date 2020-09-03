@@ -46,11 +46,7 @@ export default function SearchableList({ data, value, handleChangeValue }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleChangeValue(item)}>
-      <ListItem
-        title={item}
-        bottomDivider={true}
-        
-      >
+      <ListItem title={item} bottomDivider={true}>
         {item === value && Tick()}
       </ListItem>
     </TouchableOpacity>
