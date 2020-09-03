@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { Icon } from 'react-native-elements'
@@ -14,7 +14,6 @@ import cmColors from './app/assets/cmColors.json'
 import colors from './app/config/colors.js'
 
 import { MaterialHeaderButtons, Item } from './app/components/MyHeaderButtons'
-
 
 const Stack = createStackNavigator()
 
@@ -37,12 +36,32 @@ const App = () => {
               title: 'Editor',
               // eslint-disable-next-line react/display-name
               headerRight: () => (
-              <MaterialHeaderButtons>
-                <Item title="undo" iconType="material" iconName="undo" onPress={() => console.log('undo')} />
-                <Item title="redo" iconType="material" iconName="redo" onPress={() => console.log('redo')} />
-                <Item title="save" iconType="material" iconName="save" onPress={() => console.log('save')} />
-                <Item title="settings" iconType="material" iconName="tune" onPress={() => navigation.navigate('Settings')} />
-              </MaterialHeaderButtons>
+                <MaterialHeaderButtons>
+                  <Item
+                    title="undo"
+                    iconType="material"
+                    iconName="undo"
+                    onPress={() => console.log('undo')}
+                  />
+                  <Item
+                    title="redo"
+                    iconType="material"
+                    iconName="redo"
+                    onPress={() => console.log('redo')}
+                  />
+                  <Item
+                    title="save"
+                    iconType="material"
+                    iconName="save"
+                    onPress={() => console.log('save')}
+                  />
+                  <Item
+                    title="settings"
+                    iconType="material"
+                    iconName="tune"
+                    onPress={() => navigation.navigate('Settings')}
+                  />
+                </MaterialHeaderButtons>
               )
             })}
           >
