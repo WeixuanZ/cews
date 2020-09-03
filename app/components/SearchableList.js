@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
 import { SearchBar, ListItem, Icon } from 'react-native-elements'
 
 import colors from '../config/colors.js'
@@ -36,7 +36,7 @@ const Tick = () => (
     name="done"
     type="material"
     color={colors.primary}
-    size={21}
+    size={20.5}
   />
 )
 
@@ -45,13 +45,15 @@ export default function SearchableList({ data, value, handleChangeValue }) {
   const [currData, setData] = useState(initialData)
 
   const renderItem = ({ item }) => (
-    <ListItem
-      title={item}
-      onPress={() => handleChangeValue(item)}
-      bottomDivider={true}
-    >
-      {item === value && Tick()}
-    </ListItem>
+    <TouchableOpacity onPress={() => handleChangeValue(item)}>
+      <ListItem
+        title={item}
+        bottomDivider={true}
+        
+      >
+        {item === value && Tick()}
+      </ListItem>
+    </TouchableOpacity>
   )
 
   return (
