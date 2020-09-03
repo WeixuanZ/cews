@@ -11,6 +11,11 @@ import SearchableList from './app/components/SearchableList.js'
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
 
+import colors from './app/config/colors.js'
+
+import { MaterialHeaderButtons, Item } from './app/components/MyHeaderButtons'
+
+
 const Stack = createStackNavigator()
 
 const App = () => {
@@ -32,12 +37,12 @@ const App = () => {
               title: 'Editor',
               // eslint-disable-next-line react/display-name
               headerRight: () => (
-                <TouchableOpacity
-                  style={styles.headerBtn}
-                  onPress={() => navigation.navigate('Settings')}
-                >
-                  <Icon size={20} name="sliders-h" type="font-awesome-5" />
-                </TouchableOpacity>
+              <MaterialHeaderButtons>
+                <Item title="undo" iconType="material" iconName="undo" onPress={() => console.log('undo')} />
+                <Item title="redo" iconType="material" iconName="redo" onPress={() => console.log('redo')} />
+                <Item title="save" iconType="material" iconName="save" onPress={() => console.log('save')} />
+                <Item title="settings" iconType="material" iconName="tune" onPress={() => navigation.navigate('Settings')} />
+              </MaterialHeaderButtons>
               )
             })}
           >
@@ -84,6 +89,13 @@ const styles = StyleSheet.create({
   },
   headerBtn: {
     margin: 10
+  },
+  headerBar: {
+    flexDirection: 'row',
+    height: 40
+  },
+  icons: {
+    flex: 1
   }
 })
 
