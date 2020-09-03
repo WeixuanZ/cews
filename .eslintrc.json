@@ -6,7 +6,9 @@
         "eslint:recommended",
         "standard",
         "plugin:react/recommended",
-        "prettier"
+        "prettier",
+        "prettier/react",
+        "prettier/standard"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -22,7 +24,7 @@
     "rules": {
         "indent": ["error", 2],
         "linebreak-style": ["error", "unix"],
-        "quotes": ["warn", "single"],
+        "quotes": ["warn", "single", { "avoidEscape": true, "allowTemplateLiterals": false }],
         "semi": ["off", "never"],
         "no-var": "error",
         "no-unused-vars": "warn",

@@ -6,12 +6,14 @@ import colors from '../config/colors.js'
 
 // import cmColors from '../assets/cmColors.json'
 
+/* eslint-disable indent */
 const filterList = (text, initialData) =>
   text === ''
     ? initialData
     : initialData.filter((word) =>
         word.toLowerCase().includes(text.toLowerCase())
       )
+/* eslint-enable */
 
 function SearchHeader({ setData, initialData }) {
   const [search, setSearch] = useState('')
