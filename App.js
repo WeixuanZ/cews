@@ -34,6 +34,16 @@ const App = () => {
               headerRight: () => (
                 <HeaderButtons>
                   <Item
+                    title="search"
+                    iconName="search"
+                    onPress={() => console.log('search')}
+                  />
+                  <Item
+                    title="tab"
+                    iconName="keyboard-tab"
+                    onPress={() => console.log('tab')}
+                  />
+                  <Item
                     title="undo"
                     iconName="undo"
                     onPress={() => console.log('undo')}
