@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -10,12 +10,15 @@ import { HeaderButtons, Item } from './app/components/HeaderButtons'
 
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
+import * as cmCommands from './app/assets/cmCommands'
 
 const Stack = createStackNavigator()
 
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
   const [mode, setMode] = useState('javascript')
+
+  const webviewRef = useRef(null)
 
   return (
     <View
@@ -41,17 +44,30 @@ const App = () => {
                   <Item
                     title="tab"
                     iconName="keyboard-tab"
-                    onPress={() => console.log('tab')}
+                    onPress={() => {
+                      webviewRef.current.injectJavaScript(
+                        cmCommands.execCommand('indentMore')
+                      )
+                    }}
+                    onLongPress={() =>
+                      webviewRef.current.injectJavaScript(
+                        cmCommands.execCommand('indentLess')
+                      )
+                    }
                   />
                   <Item
                     title="undo"
                     iconName="undo"
-                    onPress={() => console.log('undo')}
+                    onPress={() =>
+                      webviewRef.current.injectJavaScript(cmCommands.undo)
+                    }
                   />
                   <Item
                     title="redo"
                     iconName="redo"
-                    onPress={() => console.log('redo')}
+                    onPress={() =>
+                      webviewRef.current.injectJavaScript(cmCommands.redo)
+                    }
                   />
                   <Item
                     title="save"
@@ -67,7 +83,7 @@ const App = () => {
               )
             })}
           >
-            {(props) => <CodeEditArea theme={theme} mode={mode} />}
+            {(props) => <CodeEditArea {...{ theme, mode, webviewRef }} />}
           </Stack.Screen>
           <Stack.Screen name="Settings">
             {(props) => (

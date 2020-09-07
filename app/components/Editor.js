@@ -43,7 +43,7 @@ function createHTML(theme, mode) {
 </head>
 <body>
   <script>
-  var myCodeMirror = CodeMirror(document.body, {
+  let cm = CodeMirror(document.body, {
     lineNumbers: true,
     tabSize: 2,
     autocapitalize: false,
@@ -58,13 +58,14 @@ function createHTML(theme, mode) {
 `
 }
 
-const CodeEditArea = ({ theme, mode }) => {
+export default function CodeEditArea({ theme, mode, webviewRef }) {
   return (
     <View style={styles.container}>
       <WebView
         source={{ html: createHTML(theme, mode) }}
         style={styles.webView}
         scrollEnabled={false}
+        ref={webviewRef}
       />
     </View>
   )
@@ -78,5 +79,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
-
-export default CodeEditArea
