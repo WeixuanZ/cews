@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
-// import hljs from 'highlight.js'
+
+import hljs from 'highlight.js'
+import * as FileSystem from 'expo-file-system'
 
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
@@ -58,7 +60,21 @@ function createHTML(theme, mode) {
 `
 }
 
+const saveFile = async (filename, text) => {
+  const fileUri = FileSystem.documentDirectory + filename
+  await FileSystem.writeAsStringAsync(fileUri, text, {
+    encoding: FileSystem.EncodingType.UTF8
+  })
+}
+
 export default function CodeEditArea({ theme, mode, webviewRef }) {
+  const [data, setData] = useState(`console.log("Hello, World");`)
+
+  useEffect(() => {
+    saveFile('test.js', data)
+    console.log('saved')
+  }, [data])
+
   return (
     <View style={styles.container}>
       <WebView
@@ -66,6 +82,10 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
         style={styles.webView}
         scrollEnabled={false}
         ref={webviewRef}
+        onMessage={({ nativeEvent: { data } }) => {
+          console.log(data)
+          setData(data)
+        }}
       />
     </View>
   )

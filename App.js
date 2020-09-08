@@ -39,7 +39,9 @@ const App = () => {
                   <Item
                     title="clear"
                     iconName="delete-sweep"
-                    onPress={() => console.log('clear')}
+                    onPress={() =>
+                      webviewRef.current.injectJavaScript(cmCommands.clear)
+                    }
                   />
                   <Item
                     title="search"
@@ -82,7 +84,9 @@ const App = () => {
                   <Item
                     title="save"
                     iconName="save"
-                    onPress={() => console.log('save')}
+                    onPress={() =>
+                      webviewRef.current.injectJavaScript(cmCommands.save)
+                    }
                   />
                   <Item
                     title="settings"
