@@ -37,6 +37,11 @@ const App = () => {
               headerRight: () => (
                 <HeaderButtons>
                   <Item
+                    title="clear"
+                    iconName="delete-sweep"
+                    onPress={() => console.log('clear')}
+                  />
+                  <Item
                     title="search"
                     iconName="search"
                     onPress={() => console.log('search')}
@@ -68,6 +73,11 @@ const App = () => {
                     onPress={() =>
                       webviewRef.current.injectJavaScript(cmCommands.redo)
                     }
+                  />
+                  <Item
+                    title="openFile"
+                    iconName="folder-open"
+                    onPress={() => console.log('fileOpen')}
                   />
                   <Item
                     title="save"
