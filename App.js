@@ -10,7 +10,7 @@ import { HeaderButtons, Item } from './app/components/HeaderButtons'
 
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
-import * as cmCommands from './app/assets/cmCommands'
+import dispatch from './app/assets/cmCommands'
 
 const Stack = createStackNavigator()
 
@@ -19,6 +19,7 @@ const App = () => {
   const [mode, setMode] = useState('javascript')
 
   const webviewRef = useRef(null)
+  const cmDispatch = dispatch(webviewRef)
 
   return (
     <View
@@ -39,9 +40,7 @@ const App = () => {
                   <Item
                     title="clear"
                     iconName="delete-sweep"
-                    onPress={() =>
-                      webviewRef.current.injectJavaScript(cmCommands.clear)
-                    }
+                    onPress={() => cmDispatch('clear')}
                   />
                   <Item
                     title="search"
@@ -53,28 +52,24 @@ const App = () => {
                     iconName="keyboard-tab"
                     onPress={() => {
                       webviewRef.current.injectJavaScript(
-                        cmCommands.execCommand('indentMore')
+                        cmDispatch('indentMore')
                       )
                     }}
                     onLongPress={() =>
                       webviewRef.current.injectJavaScript(
-                        cmCommands.execCommand('indentLess')
+                        cmDispatch('indentLess')
                       )
                     }
                   />
                   <Item
                     title="undo"
                     iconName="undo"
-                    onPress={() =>
-                      webviewRef.current.injectJavaScript(cmCommands.undo)
-                    }
+                    onPress={() => cmDispatch('undo')}
                   />
                   <Item
                     title="redo"
                     iconName="redo"
-                    onPress={() =>
-                      webviewRef.current.injectJavaScript(cmCommands.redo)
-                    }
+                    onPress={() => cmDispatch('redo')}
                   />
                   <Item
                     title="openFile"
@@ -84,9 +79,7 @@ const App = () => {
                   <Item
                     title="save"
                     iconName="save"
-                    onPress={() =>
-                      webviewRef.current.injectJavaScript(cmCommands.save)
-                    }
+                    onPress={() => cmDispatch('save')}
                   />
                   <Item
                     title="settings"

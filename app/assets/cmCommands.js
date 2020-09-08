@@ -1,6 +1,13 @@
-export const execCommand = (cmd) => `cm.execCommand("${cmd}")`
+const commands = {
+  undo: `cm.undo()`,
+  redo: `cm.redo()`,
+  clear: `cm.setValue('')`,
+  save: `window.ReactNativeWebView.postMessage(cm.getValue())`
+}
 
-export const undo = `cm.undo()`
-export const redo = `cm.redo()`
-export const clear = `cm.setValue('')`
-export const save = `window.ReactNativeWebView.postMessage(cm.getValue())`
+const dispatch = (webviewRef) => (cmd) =>
+  webviewRef.current.injectJavaScript(
+    commands[cmd] ? commands[cmd] : `cm.execCommand("${cmd}")`
+  )
+
+export default dispatch
