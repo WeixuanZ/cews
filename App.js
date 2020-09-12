@@ -45,7 +45,9 @@ const App = () => {
                   <Item
                     title="search"
                     iconName="search"
-                    onPress={() => console.log('search')}
+                    onPress={() => webviewRef.current.injectJavaScript(
+                        cmDispatch('find')
+                      )}
                   />
                   <Item
                     title="tab"
