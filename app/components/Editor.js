@@ -10,9 +10,7 @@ import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 
-
-
-function createHTML(theme, mode) {
+export function createHTML(theme, mode) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
   return `
 <!DOCTYPE html>
@@ -20,16 +18,16 @@ function createHTML(theme, mode) {
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <script type="text/javascript">
-  ${cmScripts.closeTag}
-</script>
-<script type="text/javascript">
-  ${cmScripts.fold}
-</script>
-<script type="text/javascript">
   ${cmScripts.js}
 </script>
 <script type="text/javascript" async>
   ${cmModes[mode]}
+</script>
+<script type="text/javascript" defer>
+  ${cmScripts.closeTag}
+</script>
+<script type="text/javascript" defer>
+  ${cmScripts.fold}
 </script>
 
 <style type="text/css">

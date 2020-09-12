@@ -45,23 +45,15 @@ const App = () => {
                   <Item
                     title="search"
                     iconName="search"
-                    onPress={() => webviewRef.current.injectJavaScript(
-                        cmDispatch('find')
-                      )}
+                    onPress={() => cmDispatch('find')}
                   />
                   <Item
                     title="tab"
                     iconName="keyboard-tab"
                     onPress={() => {
-                      webviewRef.current.injectJavaScript(
-                        cmDispatch('indentMore')
-                      )
+                      cmDispatch('indentMore')
                     }}
-                    onLongPress={() =>
-                      webviewRef.current.injectJavaScript(
-                        cmDispatch('indentLess')
-                      )
-                    }
+                    onLongPress={() => cmDispatch('indentLess')}
                   />
                   <Item
                     title="undo"
