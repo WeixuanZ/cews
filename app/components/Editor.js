@@ -9,6 +9,74 @@ import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
+import cmAddons from '../assets/cmAddons.json'
+
+const injectAddons = (webviewRef) => {
+  const addons = [
+    'comment',
+    'continuecomment',
+    'dialog',
+    'autorefresh',
+    'fullscreen',
+    'panel',
+    'placeholder',
+    'rulers',
+    'closebrackets',
+    'closetag',
+    'continuelist',
+    'matchbrackets',
+    'matchtags',
+    'trailingspace',
+    'brace_fold',
+    'comment_fold',
+    'foldcode',
+    'foldgutter',
+    'indent_fold',
+    'markdown_fold',
+    'xml_fold',
+    'anyword_hint',
+    'css_hint',
+    'html_hint',
+    'javascript_hint',
+    'show_hint',
+    'sql_hint',
+    'xml_hint',
+    'coffeescript_lint',
+    'css_lint',
+    'html_lint',
+    'javascript_lint',
+    'json_lint',
+    'lint',
+    'yaml_lint',
+    'merge',
+    'loadmode',
+    'multiplex_test',
+    'multiplex',
+    'overlay',
+    'simple',
+    'colorize',
+    'runmode_standalone',
+    'runmode',
+    'runmode_node',
+    'annotatescrollbar',
+    'scrollpastend',
+    'simplescrollbars',
+    'jump_to_line',
+    'match_highlighter',
+    'matchesonscrollbar',
+    'search',
+    'searchcursor',
+    'active_line',
+    'mark_selection',
+    'selection_pointer',
+    'tern',
+    'worker',
+    'hardwrap'
+  ];
+  for (addon in addons) {
+    webviewRef.current.injectJavaScript(cmAddons.addon)
+  }
+}
 
 export function createHTML(theme, mode) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
@@ -17,19 +85,23 @@ export function createHTML(theme, mode) {
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<style type="text/css">
+  ${cmScripts.dialogCSS}
+  ${cmScripts.fullscreenCSS}
+  ${cmScripts.foldgutterCSS}
+  ${cmScripts.show_hintCSS}
+  ${cmScripts.lintCSS}
+  ${cmScripts.mergeCSS}
+  ${cmScripts.simplescrollbarsCSS}
+  ${cmScripts.matchesonscrollbarCSS}
+  ${cmScripts.ternCSS}
+</style>
 <script type="text/javascript">
   ${cmScripts.js}
 </script>
 <script type="text/javascript" async>
   ${cmModes[mode]}
 </script>
-<script type="text/javascript" defer>
-  ${cmScripts.closeTag}
-</script>
-<script type="text/javascript" defer>
-  ${cmScripts.fold}
-</script>
-
 <style type="text/css">
   html, body {
     height: 100%;
@@ -81,6 +153,7 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
   useEffect(() => {
     saveFile('test.js', data)
     console.log('saved')
+    injectAddons(webviewRef)
   }, [data])
 
   return (
