@@ -37,6 +37,7 @@ const modules = {
   panel: 'node_modules/codemirror/addon/display/panel.js',
   placeholder: 'node_modules/codemirror/addon/display/placeholder.js',
   rulers: 'node_modules/codemirror/addon/display/rulers.js',
+  xml_fold: 'node_modules/codemirror/addon/fold/xml-fold.js',
   closebrackets: 'node_modules/codemirror/addon/edit/closebrackets.js',
   closetag: 'node_modules/codemirror/addon/edit/closetag.js',
   continuelist: 'node_modules/codemirror/addon/edit/continuelist.js',
@@ -50,7 +51,6 @@ const modules = {
   foldgutter: 'node_modules/codemirror/addon/fold/foldgutter.js',
   indent_fold: 'node_modules/codemirror/addon/fold/indent-fold.js',
   markdown_fold: 'node_modules/codemirror/addon/fold/markdown-fold.js',
-  xml_fold: 'node_modules/codemirror/addon/fold/xml-fold.js',
   anyword_hint: 'node_modules/codemirror/addon/hint/anyword-hint.js',
   css_hint: 'node_modules/codemirror/addon/hint/css-hint.js',
   html_hint: 'node_modules/codemirror/addon/hint/html-hint.js',
@@ -74,10 +74,10 @@ const modules = {
   multiplex: 'node_modules/codemirror/addon/mode/multiplex.js',
   overlay: 'node_modules/codemirror/addon/mode/overlay.js',
   simple: 'node_modules/codemirror/addon/mode/simple.js',
+  runmode: 'node_modules/codemirror/addon/runmode/runmode.js',
   colorize: 'node_modules/codemirror/addon/runmode/colorize.js',
   runmode_standalone:
     'node_modules/codemirror/addon/runmode/runmode-standalone.js',
-  runmode: 'node_modules/codemirror/addon/runmode/runmode.js',
   runmode_node: 'node_modules/codemirror/addon/runmode/runmode.node.js',
   annotatescrollbar:
     'node_modules/codemirror/addon/scroll/annotatescrollbar.js',
@@ -92,8 +92,8 @@ const modules = {
     'node_modules/codemirror/addon/search/matchesonscrollbar.css',
   matchesonscrollbar:
     'node_modules/codemirror/addon/search/matchesonscrollbar.js',
-  search: 'node_modules/codemirror/addon/search/search.js',
   searchcursor: 'node_modules/codemirror/addon/search/searchcursor.js',
+  search: 'node_modules/codemirror/addon/search/search.js',
   active_line: 'node_modules/codemirror/addon/selection/active-line.js',
   mark_selection: 'node_modules/codemirror/addon/selection/mark-selection.js',
   selection_pointer:

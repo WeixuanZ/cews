@@ -73,12 +73,14 @@ const injectAddons = (webviewRef) => {
     'worker',
     'hardwrap'
   ];
-  for (addon in addons) {
-    webviewRef.current.injectJavaScript(cmAddons.addon)
+  var output = ``
+  for (const addon of addons) {
+    output = output + ';' + (cmAddons[addon])
   }
+  return output
 }
 
-export function createHTML(theme, mode) {
+export function createHTML(theme, mode, addons) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
   return `
 <!DOCTYPE html>
@@ -101,6 +103,9 @@ export function createHTML(theme, mode) {
 </script>
 <script type="text/javascript" async>
   ${cmModes[mode]}
+</script>
+<script type="text/javascript">
+  ${addons}
 </script>
 <style type="text/css">
   html, body {
@@ -153,13 +158,12 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
   useEffect(() => {
     saveFile('test.js', data)
     console.log('saved')
-    injectAddons(webviewRef)
   }, [data])
 
   return (
     <View style={styles.container}>
       <WebView
-        source={{ html: createHTML(theme, mode) }}
+        source={{ html: createHTML(theme, mode, injectAddons(webviewRef)) }}
         style={styles.webView}
         scrollEnabled={false}
         ref={webviewRef}
