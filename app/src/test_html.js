@@ -3,8 +3,14 @@ const cmScripts = require('../assets/cmScripts.json')
 const cmThemes = require('../assets/cmThemes.json')
 const cmModes = require('../assets/cmModes.json')
 const cmColors = require('../assets/cmColors.json')
+const cmAddons = require('../assets/cmAddons.json')
 
-function createHTML(theme, mode) {
+const extractAddons = (addons) =>
+  addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
+
+const addons = ['closetag', 'closebrackets', 'matchbrackets']
+
+function createHTML(theme, mode, addons) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
   return `
 <!DOCTYPE html>
@@ -17,13 +23,9 @@ function createHTML(theme, mode) {
 <script type="text/javascript" async>
   ${cmModes[mode]}
 </script>
-<script type="text/javascript" defer>
-  ${cmScripts.closeTag}
+<script type="text/javascript">
+  ${addons}
 </script>
-<script type="text/javascript" defer>
-  ${cmScripts.fold}
-</script>
-
 <style type="text/css">
   html, body {
     height: 100%;
@@ -33,6 +35,7 @@ function createHTML(theme, mode) {
     background-color:${cmColors.backgroundColor[theme]};
   }
   ${cmScripts.css}
+  ${cmThemes[theme]}
   .CodeMirror {
     font-size: 12pt;
     line-height: 1.6;
@@ -41,7 +44,15 @@ function createHTML(theme, mode) {
   }
 </style>
 <style type="text/css">
-  ${cmThemes[theme]}
+  ${cmAddons.dialog_css}
+  ${cmAddons.fullscreen_css}
+  ${cmAddons.foldgutter_css}
+  ${cmAddons.show_hint_css}
+  ${cmAddons.lint_css}
+  ${cmAddons.merge_css}
+  ${cmAddons.simplescrollbars_css}
+  ${cmAddons.matchesonscrollbar_css}
+  ${cmAddons.tern_css}
 </style>
 </head>
 <body>
@@ -54,7 +65,9 @@ function createHTML(theme, mode) {
     value: 'console.log("Hello, World");',
     theme: '${theme}',
     mode: '${mode}',
-    autoCloseTags: true
+    autoCloseTags: true,
+    autoCloseBrackets: true,
+    matchBrackets: true
   });
   </script>
 </body>
@@ -62,4 +75,8 @@ function createHTML(theme, mode) {
 `
 }
 
-fs.writeFile('./test.html', createHTML('eclipse', 'xml'), () => {})
+fs.writeFile(
+  './test.html',
+  createHTML('eclipse', 'xml', extractAddons(addons)),
+  () => {}
+)

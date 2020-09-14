@@ -11,74 +11,8 @@ import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 import cmAddons from '../assets/cmAddons.json'
 
-const injectAddons = (webviewRef) => {
-  const addons = [
-    'comment',
-    'continuecomment',
-    'dialog',
-    'autorefresh',
-    'fullscreen',
-    'panel',
-    'placeholder',
-    'rulers',
-    'closebrackets',
-    'closetag',
-    'continuelist',
-    'matchbrackets',
-    'matchtags',
-    'trailingspace',
-    'brace_fold',
-    'comment_fold',
-    'foldcode',
-    'foldgutter',
-    'indent_fold',
-    'markdown_fold',
-    'xml_fold',
-    'anyword_hint',
-    'css_hint',
-    'html_hint',
-    'javascript_hint',
-    'show_hint',
-    'sql_hint',
-    'xml_hint',
-    'coffeescript_lint',
-    'css_lint',
-    'html_lint',
-    'javascript_lint',
-    'json_lint',
-    'lint',
-    'yaml_lint',
-    'merge',
-    'loadmode',
-    'multiplex_test',
-    'multiplex',
-    'overlay',
-    'simple',
-    'colorize',
-    'runmode_standalone',
-    'runmode',
-    'runmode_node',
-    'annotatescrollbar',
-    'scrollpastend',
-    'simplescrollbars',
-    'jump_to_line',
-    'match_highlighter',
-    'matchesonscrollbar',
-    'search',
-    'searchcursor',
-    'active_line',
-    'mark_selection',
-    'selection_pointer',
-    'tern',
-    'worker',
-    'hardwrap'
-  ];
-  var output = ``
-  for (const addon of addons) {
-    output = output + ';' + (cmAddons[addon])
-  }
-  return output
-}
+const extractAddons = (addons) =>
+  addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
 
 export function createHTML(theme, mode, addons) {
   // const detectedLang = hljs.highlightAuto(codeStr).language
@@ -87,17 +21,6 @@ export function createHTML(theme, mode, addons) {
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<style type="text/css">
-  ${cmScripts.dialogCSS}
-  ${cmScripts.fullscreenCSS}
-  ${cmScripts.foldgutterCSS}
-  ${cmScripts.show_hintCSS}
-  ${cmScripts.lintCSS}
-  ${cmScripts.mergeCSS}
-  ${cmScripts.simplescrollbarsCSS}
-  ${cmScripts.matchesonscrollbarCSS}
-  ${cmScripts.ternCSS}
-</style>
 <script type="text/javascript">
   ${cmScripts.js}
 </script>
@@ -116,6 +39,7 @@ export function createHTML(theme, mode, addons) {
     background-color:${cmColors.backgroundColor[theme]};
   }
   ${cmScripts.css}
+  ${cmThemes[theme]}
   .CodeMirror {
     font-size: 12pt;
     line-height: 1.6;
@@ -124,7 +48,15 @@ export function createHTML(theme, mode, addons) {
   }
 </style>
 <style type="text/css">
-  ${cmThemes[theme]}
+  ${cmAddons.dialog_css}
+  ${cmAddons.fullscreen_css}
+  ${cmAddons.foldgutter_css}
+  ${cmAddons.show_hint_css}
+  ${cmAddons.lint_css}
+  ${cmAddons.merge_css}
+  ${cmAddons.simplescrollbars_css}
+  ${cmAddons.matchesonscrollbar_css}
+  ${cmAddons.tern_css}
 </style>
 </head>
 <body>
@@ -137,7 +69,9 @@ export function createHTML(theme, mode, addons) {
     value: 'console.log("Hello, World");',
     theme: '${theme}',
     mode: '${mode}',
-    autoCloseTags: true
+    autoCloseTags: true,
+    autoCloseBrackets: true,
+    matchBrackets: true
   });
   </script>
 </body>
@@ -154,6 +88,7 @@ const saveFile = async (filename, text) => {
 
 export default function CodeEditArea({ theme, mode, webviewRef }) {
   const [data, setData] = useState(`console.log("Hello, World");`)
+  const addons = ['closetag', 'closebrackets', 'matchbrackets']
 
   useEffect(() => {
     saveFile('test.js', data)
@@ -163,7 +98,7 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
   return (
     <View style={styles.container}>
       <WebView
-        source={{ html: createHTML(theme, mode, injectAddons(webviewRef)) }}
+        source={{ html: createHTML(theme, mode, extractAddons(addons)) }}
         style={styles.webView}
         scrollEnabled={false}
         ref={webviewRef}
