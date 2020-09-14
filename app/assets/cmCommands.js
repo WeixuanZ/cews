@@ -3,7 +3,8 @@ const commands = {
   redo: `cm.redo()`,
   clear: `cm.setValue('')`,
   save: `window.ReactNativeWebView.postMessage(cm.getValue())`,
-  comment: `cm.toggleComment()`
+  comment: `cm.toggleComment()`,
+  search: `CodeMirror.commands.replace(cm)`
 }
 
 const dispatch = (webviewRef) => (cmd) =>

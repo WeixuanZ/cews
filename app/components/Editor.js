@@ -19,6 +19,17 @@ const createHTML = (theme, mode, addons) => `
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<style type="text/css">
+  ${cmAddons.dialog_css}
+  ${cmAddons.fullscreen_css}
+  ${cmAddons.foldgutter_css}
+  ${cmAddons.show_hint_css}
+  ${cmAddons.lint_css}
+  ${cmAddons.merge_css}
+  ${cmAddons.simplescrollbars_css}
+  ${cmAddons.matchesonscrollbar_css}
+  ${cmAddons.tern_css}
+</style>
 <script type="text/javascript">
   ${cmScripts.js}
 </script>
@@ -50,17 +61,6 @@ const createHTML = (theme, mode, addons) => `
     background-repeat: repeat-x;
   }
 </style>
-<style type="text/css">
-  ${cmAddons.dialog_css}
-  ${cmAddons.fullscreen_css}
-  ${cmAddons.foldgutter_css}
-  ${cmAddons.show_hint_css}
-  ${cmAddons.lint_css}
-  ${cmAddons.merge_css}
-  ${cmAddons.simplescrollbars_css}
-  ${cmAddons.matchesonscrollbar_css}
-  ${cmAddons.tern_css}
-</style>
 </head>
 <body>
   <script>
@@ -75,7 +75,8 @@ const createHTML = (theme, mode, addons) => `
     autoCloseTags: true,
     autoCloseBrackets: true,
     matchBrackets: true,
-    showTrailingSpace: true
+    showTrailingSpace: true,
+    searchMode: 'popup'
   });
   </script>
 </body>
@@ -100,7 +101,13 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     'closebrackets',
     'matchbrackets',
     'trailingspace',
-    'comment'
+    'comment',
+    'jump_to_line',
+    'match_highlighter',
+    'panel',
+    'dialog',
+    'searchcursor',
+    'search' 
   ]
 
   useEffect(() => {

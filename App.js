@@ -40,7 +40,7 @@ const App = () => {
                   <Item
                     title="search"
                     iconName="search"
-                    onPress={() => cmDispatch('find')}
+                    onPress={() => cmDispatch('search')}
                   />
                   <Item
                     title="tab"
