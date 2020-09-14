@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 
-import hljs from 'highlight.js'
+import hljs from 'highlight.js' // const detectedLang = hljs.highlightAuto(codeStr).language
 import * as FileSystem from 'expo-file-system'
 
 import cmScripts from '../assets/cmScripts.json'
@@ -14,9 +14,7 @@ import cmAddons from '../assets/cmAddons.json'
 const extractAddons = (addons) =>
   addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
 
-export function createHTML(theme, mode, addons) {
-  // const detectedLang = hljs.highlightAuto(codeStr).language
-  return `
+const createHTML = (theme, mode, addons) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +44,11 @@ export function createHTML(theme, mode, addons) {
     width: 100%;
     height: 100%;
   }
+  .cm-trailingspace {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QUXCToH00Y1UgAAACFJREFUCNdjPMDBUc/AwNDAAAFMTAwMDA0OP34wQgX/AQBYgwYEx4f9lQAAAABJRU5ErkJggg==);
+    background-position: bottom left;
+    background-repeat: repeat-x;
+  }
 </style>
 <style type="text/css">
   ${cmAddons.dialog_css}
@@ -71,28 +74,35 @@ export function createHTML(theme, mode, addons) {
     mode: '${mode}',
     autoCloseTags: true,
     autoCloseBrackets: true,
-    matchBrackets: true
+    matchBrackets: true,
+    showTrailingSpace: true
   });
   </script>
 </body>
 </html>
 `
-}
 
 const saveFile = async (filename, text) => {
   const fileUri = FileSystem.documentDirectory + filename
+  const info = await FileSystem.getInfoAsync(fileUri)
+  console.log(info)
   await FileSystem.writeAsStringAsync(fileUri, text, {
     encoding: FileSystem.EncodingType.UTF8
   })
+  console.log('saved')
 }
 
 export default function CodeEditArea({ theme, mode, webviewRef }) {
   const [data, setData] = useState(`console.log("Hello, World");`)
-  const addons = ['closetag', 'closebrackets', 'matchbrackets']
+  const didMount = useRef(false)
+  const addons = ['closetag', 'closebrackets', 'matchbrackets', 'trailingspace']
 
   useEffect(() => {
-    saveFile('test.js', data)
-    console.log('saved')
+    if (didMount.current) {
+      saveFile('test.js', data)
+    } else {
+      didMount.current = true
+    }
   }, [data])
 
   return (

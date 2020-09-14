@@ -23,6 +23,7 @@ const writeJSON = (path, obj, successMsg) => {
   })
 }
 
+/* eslint-disable indent */
 const minify = (path) =>
   pathLib.extname(path) === '.css'
     ? UglifyCSS.processFiles([path], {
@@ -34,6 +35,7 @@ const minify = (path) =>
           if (err) console.log(`${err}\nError finding file at ${path}`)
         })
       ).code
+/* eslint-enable */
 
 writeJSON(
   'app/assets/cmScripts.json',
