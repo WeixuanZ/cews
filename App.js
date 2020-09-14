@@ -38,11 +38,6 @@ const App = () => {
               headerRight: () => (
                 <HeaderButtons>
                   <Item
-                    title="clear"
-                    iconName="delete-sweep"
-                    onPress={() => cmDispatch('clear')}
-                  />
-                  <Item
                     title="search"
                     iconName="search"
                     onPress={() => cmDispatch('find')}
@@ -59,16 +54,12 @@ const App = () => {
                     title="undo"
                     iconName="undo"
                     onPress={() => cmDispatch('undo')}
+                    onLongPress={() => cmDispatch('redo')}
                   />
                   <Item
-                    title="redo"
-                    iconName="redo"
-                    onPress={() => cmDispatch('redo')}
-                  />
-                  <Item
-                    title="openFile"
-                    iconName="folder-open"
-                    onPress={() => console.log('fileOpen')}
+                    title="comment"
+                    iconName="comment"
+                    onPress={() => cmDispatch('comment')}
                   />
                   <Item
                     title="save"

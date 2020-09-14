@@ -95,7 +95,13 @@ const saveFile = async (filename, text) => {
 export default function CodeEditArea({ theme, mode, webviewRef }) {
   const [data, setData] = useState(`console.log("Hello, World");`)
   const didMount = useRef(false)
-  const addons = ['closetag', 'closebrackets', 'matchbrackets', 'trailingspace']
+  const addons = [
+    'closetag',
+    'closebrackets',
+    'matchbrackets',
+    'trailingspace',
+    'comment'
+  ]
 
   useEffect(() => {
     if (didMount.current) {
