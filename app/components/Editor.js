@@ -10,6 +10,7 @@ import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 import cmAddons from '../assets/cmAddons.json'
+import cmAdvancedAddons from '../assets/cmAdvancedAddons.json'
 
 const extractAddons = (addons) =>
   addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
@@ -20,7 +21,7 @@ const createHTML = (theme, mode, addons) => `
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <style type="text/css">
-  ${cmAddons.advanced_dialog_css}
+  ${cmAdvancedAddons.advanced_dialog_css}
   ${cmAddons.fullscreen_css}
   ${cmAddons.foldgutter_css}
   ${cmAddons.show_hint_css}
@@ -38,6 +39,10 @@ const createHTML = (theme, mode, addons) => `
 </script>
 <script type="text/javascript">
   ${addons}
+</script>
+<script type="text/javascript">
+  ${cmAdvancedAddons.advanced_dialog}
+  ${cmAdvancedAddons.revised_search}
 </script>
 <style type="text/css">
   html, body {
@@ -105,9 +110,7 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     'jump_to_line',
     'match_highlighter',
     'panel',
-    'advanced_dialog',
-    'searchcursor',
-    'revised_search' 
+    'searchcursor', 
   ]
 
   useEffect(() => {
