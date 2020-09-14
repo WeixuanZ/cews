@@ -2054,6 +2054,18 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+codemirror-advanceddialog@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/codemirror-advanceddialog/-/codemirror-advanceddialog-1.1.9.tgz#caa39f899fd3f06b84bd6654a9dbae599a20d716"
+  integrity sha1-yqOfiZ/T8GuEvWZUqduuWZog1xY=
+
+codemirror-revisedsearch@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/codemirror-revisedsearch/-/codemirror-revisedsearch-1.0.12.tgz#780cdb553d7524242ed7fbadc008d8af0701c9ab"
+  integrity sha1-eAzbVT11JCQu1/utwAjYrwcByas=
+  dependencies:
+    codemirror-advanceddialog "^1.1.9"
+
 codemirror@^5.56.0:
   version "5.56.0"
   resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.56.0.tgz#675640fcc780105cd22d3faa738b5d7ea6426f61"

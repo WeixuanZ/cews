@@ -20,7 +20,7 @@ const createHTML = (theme, mode, addons) => `
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <style type="text/css">
-  ${cmAddons.dialog_css}
+  ${cmAddons.advanced_dialog_css}
   ${cmAddons.fullscreen_css}
   ${cmAddons.foldgutter_css}
   ${cmAddons.show_hint_css}
@@ -105,9 +105,9 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     'jump_to_line',
     'match_highlighter',
     'panel',
-    'dialog',
+    'advanced_dialog',
     'searchcursor',
-    'search' 
+    'revised_search' 
   ]
 
   useEffect(() => {
