@@ -84,6 +84,16 @@ const bundledAddons = addons.reduce((acc, val) => {
   return acc
 }, {})
 
+var bundledAdvancedAddons = {};
+bundledAdvancedAddons['revised_search'] = minify('node_modules/codemirror-revisedsearch/dist/revised-search.js')
+bundledAdvancedAddons['advanced_dialog'] = minify('node_modules/codemirror-advanceddialog/dist/advanced-dialog.js')
+bundledAdvancedAddons['advanced_dialog_css'] = minify('node_modules/codemirror-advanceddialog/dist/advanced-dialog.css')
+
+writeJSON(
+  'app/assets/cmAdvancedAddons.json',
+  bundledAdvancedAddons,
+  'Successfully bundled CodeMirror advanced addons'
+)
 
 writeJSON(
   'app/assets/cmAddons.json',
