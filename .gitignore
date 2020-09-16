@@ -13,7 +13,6 @@ web-report/
 *.sublime-workspace
 .vscode
 *.code-workspace
-.idea
 
 # macOS
 .DS_Store
