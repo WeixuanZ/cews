@@ -4,13 +4,7 @@ import { ListItem } from 'react-native-elements'
 
 import colors from '../config/colors.js'
 
-const Menu = ({
-  theme,
-  mode,
-  navigation,
-  handleChangeTheme,
-  handleChangeMode
-}) => {
+const Menu = ({ theme, mode, navigation }) => {
   const SettingItem = ({ title, subtitle, target }) => (
     <TouchableOpacity>
       <ListItem
