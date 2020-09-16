@@ -1,10 +1,7 @@
 const commands = {
-  undo: `cm.undo()`,
-  redo: `cm.redo()`,
   clear: `cm.setValue('')`,
   save: `window.ReactNativeWebView.postMessage(cm.getValue())`,
-  comment: `cm.toggleComment()`,
-  search: `CodeMirror.commands.replace(cm)`
+  comment: `cm.toggleComment()`
 }
 
 const dispatch = (webviewRef) => (cmd) =>
