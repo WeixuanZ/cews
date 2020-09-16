@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -10,12 +10,16 @@ import { HeaderButtons, Item } from './app/components/HeaderButtons'
 
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
+import dispatch from './app/assets/cmCommands'
 
 const Stack = createStackNavigator()
 
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
   const [mode, setMode] = useState('javascript')
+
+  const webviewRef = useRef(null)
+  const cmDispatch = dispatch(webviewRef)
 
   return (
     <View
@@ -36,27 +40,31 @@ const App = () => {
                   <Item
                     title="search"
                     iconName="search"
-                    onPress={() => console.log('search')}
+                    onPress={() => cmDispatch('replace')}
                   />
                   <Item
                     title="tab"
                     iconName="keyboard-tab"
-                    onPress={() => console.log('tab')}
+                    onPress={() => {
+                      cmDispatch('indentMore')
+                    }}
+                    onLongPress={() => cmDispatch('indentLess')}
                   />
                   <Item
                     title="undo"
                     iconName="undo"
-                    onPress={() => console.log('undo')}
+                    onPress={() => cmDispatch('undo')}
+                    onLongPress={() => cmDispatch('redo')}
                   />
                   <Item
-                    title="redo"
-                    iconName="redo"
-                    onPress={() => console.log('redo')}
+                    title="comment"
+                    iconName="comment"
+                    onPress={() => cmDispatch('comment')}
                   />
                   <Item
                     title="save"
                     iconName="save"
-                    onPress={() => console.log('save')}
+                    onPress={() => cmDispatch('save')}
                   />
                   <Item
                     title="settings"
@@ -67,7 +75,7 @@ const App = () => {
               )
             })}
           >
-            {(props) => <CodeEditArea theme={theme} mode={mode} />}
+            {(props) => <CodeEditArea {...{ theme, mode, webviewRef }} />}
           </Stack.Screen>
           <Stack.Screen name="Settings">
             {(props) => (
