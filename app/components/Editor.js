@@ -10,7 +10,7 @@ import cmThemes from '../assets/cmThemes.json'
 import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 import cmAddons from '../assets/cmAddons.json'
-import cmAdvancedAddons from '../assets/cmAdvancedAddons.json'
+import cmAdvancedAddons from '../assets/cmAdvancedAddons.js'
 
 const extractAddons = (addons) =>
   addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
@@ -110,7 +110,7 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     'jump_to_line',
     'match_highlighter',
     'panel',
-    'searchcursor', 
+    'searchcursor'
   ]
 
   useEffect(() => {

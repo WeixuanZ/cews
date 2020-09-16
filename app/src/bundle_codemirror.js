@@ -16,7 +16,7 @@ const glob = require('glob')
 const pathLib = require('path')
 const UglifyJS = require('uglify-js')
 const UglifyCSS = require('uglifycss')
-const replace = require('replace-in-file');
+const replace = require('replace-in-file')
 
 const writeJSON = (path, obj, successMsg) => {
   fs.writeFile(path, JSON.stringify(obj), (err) => {
@@ -80,15 +80,15 @@ const options = {
         .reduce(function (a, b) { return a + b; }, 0);`,
   to: `var editorheight = newHeight + 3.5 * info.panels
         .map(function (p) { return p.node.getBoundingClientRect().height; })
-        .reduce(function (a, b) { return a + b; }, 0);`,
-};
+        .reduce(function (a, b) { return a + b; }, 0);`
+}
 
 replace(options, (error, results) => {
   if (error) {
-    return console.error('Error occurred:', error);
+    return console.error('Error occurred:', error)
   }
-  bundleAddons();
-});
+  bundleAddons()
+})
 
 const bundleAddons = () => {
   const addons = glob.sync('node_modules/codemirror/addon/*/*')
@@ -108,20 +108,3 @@ const bundleAddons = () => {
     'Successfully bundled CodeMirror addons'
   )
 }
-
-
-
-/*var bundledAdvancedAddons = {};
-bundledAdvancedAddons['revised_search'] = minify('node_modules/codemirror-revisedsearch/dist/revised-search.js')
-bundledAdvancedAddons['advanced_dialog'] = minify('node_modules/codemirror-advanceddialog/dist/advanced-dialog.js')
-bundledAdvancedAddons['advanced_dialog_css'] = minify('node_modules/codemirror-advanceddialog/dist/advanced-dialog.css')
-
-writeJSON(
-  'app/assets/cmAdvancedAddons.json',
-  bundledAdvancedAddons,
-  'Successfully bundled CodeMirror advanced addons'
-)*/
-
-
-
-
