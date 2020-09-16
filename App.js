@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import CodeEditArea from './app/components/Editor.js'
@@ -17,6 +17,8 @@ const Stack = createStackNavigator()
 const App = () => {
   const [theme, setTheme] = useState('eclipse')
   const [mode, setMode] = useState('javascript')
+  const [navTheme, setNavTheme] = useState(DefaultTheme);
+  const [isLightMode, setLight] = useState(true);
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)
@@ -28,7 +30,7 @@ const App = () => {
         { backgroundColor: cmColors.backgroundColor[theme] }
       ]}
     >
-      <NavigationContainer>
+      <NavigationContainer theme={navTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Editor"
@@ -85,6 +87,10 @@ const App = () => {
                 navigation={props.navigation}
                 handleChangeTheme={setTheme}
                 handleChangeMode={setMode}
+                handleChangeNavTheme={setNavTheme}
+                handleChangeNavBool={setLight}
+                navTheme = {navTheme}
+                isLightMode={isLightMode}
               />
             )}
           </Stack.Screen>
@@ -103,6 +109,7 @@ const App = () => {
                 data={Object.keys(cmModes)}
                 value={mode}
                 handleChangeValue={setMode}
+                isLightMode={isLightMode}
               />
             )}
           </Stack.Screen>
