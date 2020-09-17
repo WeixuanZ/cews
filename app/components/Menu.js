@@ -43,13 +43,7 @@ const Menu = ({
           bottomDivider={true}
         >
           <ListItem.Content style={styles.listItem}>
-            <ListItem.Title
-              style={
-                (styles.listContent)
-              }
-            >
-              {title}
-            </ListItem.Title>
+            <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
             <ListItem.Subtitle
               style={
                 (styles.listContent, { color: getColor('#000000', '#FFFFFF') })
@@ -66,17 +60,9 @@ const Menu = ({
 
   const SwitchItem = ({ title, subtitle }) => (
     <ThemeProvider useDark={!isLightMode}>
-      <ListItem
-        bottomDivider={true}
-      >
+      <ListItem bottomDivider={true}>
         <ListItem.Content style={styles.listItem}>
-          <ListItem.Title
-            style={
-              (styles.listContent)
-            }
-          >
-            {title}
-          </ListItem.Title>
+          <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
           <ListItem.Subtitle style={styles.listContent}>
             {subtitle}
           </ListItem.Subtitle>

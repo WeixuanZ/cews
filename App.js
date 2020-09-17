@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme
+} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import CodeEditArea from './app/components/Editor.js'
@@ -17,10 +21,14 @@ import { useDarkMode } from 'react-native-dynamic'
 const Stack = createStackNavigator()
 
 const App = () => {
-  const [theme, setTheme] = !useDarkMode() ? useState('eclipse') : useState('3024-night')
+  const [theme, setTheme] = !useDarkMode()
+    ? useState('eclipse')
+    : useState('3024-night')
   const [mode, setMode] = useState('javascript')
-  const [navTheme, setNavTheme] = !useDarkMode() ? useState(DefaultTheme) : useState(DarkTheme);
-  const [isLightMode, setLight] = useState(!useDarkMode());
+  const [navTheme, setNavTheme] = !useDarkMode()
+    ? useState(DefaultTheme)
+    : useState(DarkTheme)
+  const [isLightMode, setLight] = useState(!useDarkMode())
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)
@@ -91,7 +99,7 @@ const App = () => {
                 handleChangeMode={setMode}
                 handleChangeNavTheme={setNavTheme}
                 handleChangeNavBool={setLight}
-                navTheme = {navTheme}
+                navTheme={navTheme}
                 isLightMode={isLightMode}
               />
             )}
