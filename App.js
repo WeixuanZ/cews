@@ -12,13 +12,15 @@ import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
 import dispatch from './app/assets/cmCommands'
 
+import { useDarkMode } from 'react-native-dynamic'
+
 const Stack = createStackNavigator()
 
 const App = () => {
-  const [theme, setTheme] = useState('eclipse')
+  const [theme, setTheme] = !useDarkMode() ? useState('eclipse') : useState('3024-night')
   const [mode, setMode] = useState('javascript')
-  const [navTheme, setNavTheme] = useState(DefaultTheme);
-  const [isLightMode, setLight] = useState(true);
+  const [navTheme, setNavTheme] = !useDarkMode() ? useState(DefaultTheme) : useState(DarkTheme);
+  const [isLightMode, setLight] = useState(!useDarkMode());
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)
@@ -100,6 +102,7 @@ const App = () => {
                 data={Object.keys(cmColors.backgroundColor)}
                 value={theme}
                 handleChangeValue={setTheme}
+                isLightMode={isLightMode}
               />
             )}
           </Stack.Screen>
