@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
-import { SearchBar, ListItem, Icon } from 'react-native-elements'
+import { SearchBar, ListItem, Icon, ThemeProvider } from 'react-native-elements'
 
 import colors from '../config/colors.js'
 
@@ -15,20 +15,21 @@ const filterList = (text, initialData) =>
       )
 /* eslint-enable */
 
-function SearchHeader({ setData, initialData }) {
+function SearchHeader({ setData, initialData, isLightMode }) {
   const [search, setSearch] = useState('')
-
   return (
-    <SearchBar
-      value={search}
-      onChangeText={(text) => {
-        setSearch(text)
-        setData(filterList(text, initialData))
-      }}
-      platform="ios"
-      autoFocus={true}
-      autoCorrect={false}
-    />
+    <ThemeProvider useDark={!isLightMode}>
+      <SearchBar
+        value={search}
+        onChangeText={(text) => {
+          setSearch(text)
+          setData(filterList(text, initialData))
+        }}
+        platform="ios"
+        autoFocus={false}
+        autoCorrect={false}
+      />
+    </ThemeProvider>
   )
 }
 
@@ -42,25 +43,35 @@ const Tick = () => (
   />
 )
 
-export default function SearchableList({ data, value, handleChangeValue }) {
+export default function SearchableList({
+  data,
+  value,
+  handleChangeValue,
+  isLightMode
+}) {
   const initialData = data
   const [currData, setData] = useState(initialData)
-
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleChangeValue(item)}>
-      <ListItem title={item} bottomDivider={true}>
-        {item === value && Tick()}
-      </ListItem>
-    </TouchableOpacity>
+    <ThemeProvider useDark={!isLightMode}>
+      <TouchableOpacity onPress={() => handleChangeValue(item)}>
+        <ListItem bottomDivider={true}>
+          <ListItem.Content style={styles.listItem}>
+            <ListItem.Title style={styles.listContent}>{item}</ListItem.Title>
+            {item === value && Tick()}
+          </ListItem.Content>
+        </ListItem>
+      </TouchableOpacity>
+    </ThemeProvider>
   )
 
   return (
     <View style={styles.container}>
-      <SearchHeader {...{ setData, initialData }} />
+      <SearchHeader {...{ setData, initialData, isLightMode }} />
       <FlatList
         data={currData}
         renderItem={renderItem}
         keyExtractor={(item) => item}
+        extraData={isLightMode}
       />
     </View>
   )
@@ -68,6 +79,14 @@ export default function SearchableList({ data, value, handleChangeValue }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  listContent: {
     flex: 1
   }
 })

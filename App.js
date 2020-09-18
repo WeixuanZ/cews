@@ -1,7 +1,13 @@
 import React, { useState, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme
+} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useDarkMode } from 'react-native-dynamic'
+import { StatusBar } from 'expo-status-bar'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
@@ -15,8 +21,11 @@ import dispatch from './app/assets/cmCommands'
 const Stack = createStackNavigator()
 
 const App = () => {
-  const [theme, setTheme] = useState('eclipse')
+  const [theme, setTheme] = !useDarkMode()
+    ? useState('eclipse')
+    : useState('3024-night')
   const [mode, setMode] = useState('javascript')
+  const [isLightMode, setIsLightMode] = useState(!useDarkMode())
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)
@@ -28,7 +37,8 @@ const App = () => {
         { backgroundColor: cmColors.backgroundColor[theme] }
       ]}
     >
-      <NavigationContainer>
+      <StatusBar style={isLightMode ? 'dark' : 'light'} />
+      <NavigationContainer theme={isLightMode ? DefaultTheme : DarkTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Editor"
@@ -83,8 +93,10 @@ const App = () => {
                 theme={theme}
                 mode={mode}
                 navigation={props.navigation}
-                handleChangeTheme={setTheme}
-                handleChangeMode={setMode}
+                isLightMode={isLightMode}
+                handleChangeIsLightMode={() =>
+                  setIsLightMode((isLightMode) => !isLightMode)
+                }
               />
             )}
           </Stack.Screen>
@@ -94,6 +106,7 @@ const App = () => {
                 data={Object.keys(cmColors.backgroundColor)}
                 value={theme}
                 handleChangeValue={setTheme}
+                isLightMode={isLightMode}
               />
             )}
           </Stack.Screen>
@@ -103,6 +116,7 @@ const App = () => {
                 data={Object.keys(cmModes)}
                 value={mode}
                 handleChangeValue={setMode}
+                isLightMode={isLightMode}
               />
             )}
           </Stack.Screen>

@@ -1,25 +1,58 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { ListItem } from 'react-native-elements'
+import { View, StyleSheet, TouchableOpacity, Switch } from 'react-native'
+import { ListItem, ThemeProvider } from 'react-native-elements'
 
 import colors from '../config/colors.js'
 
-const Menu = ({ theme, mode, navigation }) => {
+const Menu = ({
+  theme,
+  mode,
+  navigation,
+  isLightMode,
+  handleChangeIsLightMode
+}) => {
+  const getColor = (color1, color2) => {
+    return isLightMode ? color1 : color2
+  }
   const SettingItem = ({ title, subtitle, target }) => (
-    <TouchableOpacity>
-      <ListItem
-        onPress={() => navigation.navigate(target)}
-        bottomDivider={true}
-      >
+    <ThemeProvider useDark={!isLightMode}>
+      <TouchableOpacity>
+        <ListItem
+          onPress={() => navigation.navigate(target)}
+          bottomDivider={true}
+        >
+          <ListItem.Content style={styles.listItem}>
+            <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
+            <ListItem.Subtitle
+              style={[
+                styles.listContent,
+                { color: getColor('#000000', '#FFFFFF') }
+              ]}
+            >
+              {subtitle}
+            </ListItem.Subtitle>
+            <ListItem.Chevron color={colors.primary} />
+          </ListItem.Content>
+        </ListItem>
+      </TouchableOpacity>
+    </ThemeProvider>
+  )
+
+  const SwitchItem = ({ title }) => (
+    <ThemeProvider useDark={!isLightMode}>
+      <ListItem bottomDivider={true}>
         <ListItem.Content style={styles.listItem}>
           <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
-          <ListItem.Subtitle style={styles.listContent}>
-            {subtitle}
-          </ListItem.Subtitle>
-          <ListItem.Chevron color={colors.primary} />
+          <Switch
+            trackColor={{ false: '#767577', true: colors.primaryHighlight }}
+            thumbColor={isLightMode ? '#fff' : colors.primary}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={handleChangeIsLightMode}
+            value={isLightMode}
+          />
         </ListItem.Content>
       </ListItem>
-    </TouchableOpacity>
+    </ThemeProvider>
   )
 
   return (
@@ -34,6 +67,7 @@ const Menu = ({ theme, mode, navigation }) => {
         subtitle={mode[0].toUpperCase() + mode.slice(1)}
         target="Set Editor Language"
       />
+      <SwitchItem title="Dark/Light" />
     </View>
   )
 }
