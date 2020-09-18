@@ -56,10 +56,12 @@ export default function SearchableList({
     <ThemeProvider useDark={!isLightMode}>
       <TouchableOpacity onPress={() => handleChangeValue(item)}>
         <ListItem
-          title={item}
           bottomDivider={true}
         >
-          {item === value && Tick()}
+          <ListItem.Content style={styles.listItem}>
+            <ListItem.Title style={styles.listContent}>{item}</ListItem.Title>
+            {item === value && Tick()}
+          </ListItem.Content>
         </ListItem>
       </TouchableOpacity>
     </ThemeProvider>
@@ -80,6 +82,14 @@ export default function SearchableList({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  listContent: {
     flex: 1
   }
 })
