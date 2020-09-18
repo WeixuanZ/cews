@@ -22,12 +22,12 @@ const Menu = ({
   const changeTheme = (state) => {
     if (!state) {
       handleChangeNavTheme(DefaultTheme)
-      if (theme == '3024-night') {
+      if (theme === '3024-night') {
         handleChangeTheme('eclipse')
       }
     } else {
       handleChangeNavTheme(DarkTheme)
-      if (theme == 'eclipse') {
+      if (theme === 'eclipse') {
         handleChangeTheme('3024-night')
       }
     }
