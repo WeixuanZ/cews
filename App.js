@@ -25,10 +25,7 @@ const App = () => {
     ? useState('eclipse')
     : useState('3024-night')
   const [mode, setMode] = useState('javascript')
-  const [navTheme, setNavTheme] = !useDarkMode()
-    ? useState(DefaultTheme)
-    : useState(DarkTheme)
-  const [isLightMode, setLight] = useState(!useDarkMode())
+  const [isLightMode, setIsLightMode] = useState(!useDarkMode())
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)
@@ -40,7 +37,7 @@ const App = () => {
         { backgroundColor: cmColors.backgroundColor[theme] }
       ]}
     >
-      <NavigationContainer theme={navTheme}>
+      <NavigationContainer theme={isLightMode ? DefaultTheme : DarkTheme}>
         <Stack.Navigator>
           <Stack.Screen
             name="Editor"
@@ -95,12 +92,10 @@ const App = () => {
                 theme={theme}
                 mode={mode}
                 navigation={props.navigation}
-                handleChangeTheme={setTheme}
-                handleChangeMode={setMode}
-                handleChangeNavTheme={setNavTheme}
-                handleChangeNavBool={setLight}
-                navTheme={navTheme}
                 isLightMode={isLightMode}
+                handleChangeIsLightMode={() =>
+                  setIsLightMode((isLightMode) => !isLightMode)
+                }
               />
             )}
           </Stack.Screen>

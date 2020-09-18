@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Switch } from 'react-native'
-import { DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { ListItem, ThemeProvider } from 'react-native-elements'
 
 import colors from '../config/colors.js'
@@ -9,29 +8,9 @@ const Menu = ({
   theme,
   mode,
   navigation,
-  handleChangeTheme,
-  handleChangeNavTheme,
-  handleChangeNavBool,
-  navTheme,
-  isLightMode
+  isLightMode,
+  handleChangeIsLightMode
 }) => {
-  const toggleSwitch = () => {
-    handleChangeNavBool(!isLightMode)
-    changeTheme(isLightMode)
-  }
-  const changeTheme = (state) => {
-    if (!state) {
-      handleChangeNavTheme(DefaultTheme)
-      if (theme === '3024-night') {
-        handleChangeTheme('eclipse')
-      }
-    } else {
-      handleChangeNavTheme(DarkTheme)
-      if (theme === 'eclipse') {
-        handleChangeTheme('3024-night')
-      }
-    }
-  }
   const getColor = (color1, color2) => {
     return isLightMode ? color1 : color2
   }
@@ -45,9 +24,10 @@ const Menu = ({
           <ListItem.Content style={styles.listItem}>
             <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
             <ListItem.Subtitle
-              style={
-                (styles.listContent, { color: getColor('#000000', '#FFFFFF') })
-              }
+              style={[
+                styles.listContent,
+                { color: getColor('#000000', '#FFFFFF') }
+              ]}
             >
               {subtitle}
             </ListItem.Subtitle>
@@ -58,19 +38,16 @@ const Menu = ({
     </ThemeProvider>
   )
 
-  const SwitchItem = ({ title, subtitle }) => (
+  const SwitchItem = ({ title }) => (
     <ThemeProvider useDark={!isLightMode}>
       <ListItem bottomDivider={true}>
         <ListItem.Content style={styles.listItem}>
           <ListItem.Title style={styles.listContent}>{title}</ListItem.Title>
-          <ListItem.Subtitle style={styles.listContent}>
-            {subtitle}
-          </ListItem.Subtitle>
           <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
-            thumbColor={isLightMode ? '#f5dd4b' : '#f4f3f4'}
+            trackColor={{ false: '#767577', true: colors.primaryHighlight }}
+            thumbColor={isLightMode ? '#fff' : colors.primary}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
+            onValueChange={handleChangeIsLightMode}
             value={isLightMode}
           />
         </ListItem.Content>
@@ -90,7 +67,7 @@ const Menu = ({
         subtitle={mode[0].toUpperCase() + mode.slice(1)}
         target="Set Editor Language"
       />
-      <SwitchItem title="Dark/Light" subtitle={''} />
+      <SwitchItem title="Dark/Light" />
     </View>
   )
 }

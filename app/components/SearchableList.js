@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native'
 import { SearchBar, ListItem, Icon, ThemeProvider } from 'react-native-elements'
-import { DefaultTheme, DarkTheme } from '@react-navigation/native'
 
 import colors from '../config/colors.js'
 
@@ -55,9 +54,7 @@ export default function SearchableList({
   const renderItem = ({ item }) => (
     <ThemeProvider useDark={!isLightMode}>
       <TouchableOpacity onPress={() => handleChangeValue(item)}>
-        <ListItem
-          bottomDivider={true}
-        >
+        <ListItem bottomDivider={true}>
           <ListItem.Content style={styles.listItem}>
             <ListItem.Title style={styles.listContent}>{item}</ListItem.Title>
             {item === value && Tick()}
