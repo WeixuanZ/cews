@@ -6,6 +6,7 @@ import {
   DarkTheme
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useDarkMode } from 'react-native-dynamic'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
@@ -15,8 +16,6 @@ import { HeaderButtons, Item } from './app/components/HeaderButtons'
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
 import dispatch from './app/assets/cmCommands'
-
-import { useDarkMode } from 'react-native-dynamic'
 
 const Stack = createStackNavigator()
 
@@ -29,6 +28,9 @@ const App = () => {
     ? useState(DefaultTheme)
     : useState(DarkTheme)
   const [isLightMode, setLight] = useState(!useDarkMode())
+
+  const webviewRef = useRef(null)
+  const cmDispatch = dispatch(webviewRef)
 
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef)

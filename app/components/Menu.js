@@ -35,6 +35,7 @@ const Menu = ({
   const getColor = (color1, color2) => {
     return isLightMode ? color1 : color2
   }
+  
   const SettingItem = ({ title, subtitle, target }) => (
     <ThemeProvider useDark={!isLightMode}>
       <TouchableOpacity>
