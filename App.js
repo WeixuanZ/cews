@@ -6,6 +6,8 @@ import {
   DarkTheme
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useDarkMode } from 'react-native-dynamic'
+import { StatusBar } from 'expo-status-bar'
 
 import CodeEditArea from './app/components/Editor.js'
 import Menu from './app/components/Menu.js'
@@ -15,8 +17,6 @@ import { HeaderButtons, Item } from './app/components/HeaderButtons'
 import cmModes from './app/assets/cmModes.json'
 import cmColors from './app/assets/cmColors.json'
 import dispatch from './app/assets/cmCommands'
-
-import { useDarkMode } from 'react-native-dynamic'
 
 const Stack = createStackNavigator()
 
@@ -37,6 +37,7 @@ const App = () => {
         { backgroundColor: cmColors.backgroundColor[theme] }
       ]}
     >
+      <StatusBar style={isLightMode ? 'dark' : 'light'} />
       <NavigationContainer theme={isLightMode ? DefaultTheme : DarkTheme}>
         <Stack.Navigator>
           <Stack.Screen
