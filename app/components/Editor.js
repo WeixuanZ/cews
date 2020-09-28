@@ -3,7 +3,8 @@ import { StyleSheet, View } from 'react-native'
 import WebView from 'react-native-webview'
 
 import hljs from 'highlight.js' // const detectedLang = hljs.highlightAuto(codeStr).language
-import * as FileSystem from 'expo-file-system'
+
+import RNFetchBlob from 'rn-fetch-blob'
 
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
@@ -11,6 +12,8 @@ import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 import cmAddons from '../assets/cmAddons.json'
 import cmAdvancedAddons from '../assets/cmAdvancedAddons.js'
+
+import DialogInput from 'react-native-dialog-input'
 
 const extractAddons = (addons) =>
   addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
@@ -88,18 +91,39 @@ const createHTML = (theme, mode, addons) => `
 </html>
 `
 
-const saveFile = async (filename, text) => {
-  const fileUri = FileSystem.documentDirectory + filename
-  const info = await FileSystem.getInfoAsync(fileUri)
-  console.log(info)
-  await FileSystem.writeAsStringAsync(fileUri, text, {
-    encoding: FileSystem.EncodingType.UTF8
-  })
-  console.log('saved')
+const saveFile = async (fileUri, text, setFile, changeVisible) => {
+  changeVisible(false)
+  setFile(fileUri)
+  console.log(fileUri)
+  RNFetchBlob.fs
+    .writeFile(fileUri, text, 'utf8')
+    .then((success) => {
+      console.log('FILE WRITTEN! Path:' + fileUri)
+    })
+    .catch((err) => {
+      console.log(err.message)
+    })
 }
 
-export default function CodeEditArea({ theme, mode, webviewRef }) {
-  const [data, setData] = useState(`console.log("Hello, World");`)
+const getFilename = async (text, currFile, setFile, changeVisible) => {
+  if (currFile != '') {
+    saveFile(currFile, text, setFile, changeVisible)
+  } else {
+    changeVisible(true)
+  }
+}
+
+export default function CodeEditArea({
+  theme,
+  mode,
+  webviewRef,
+  data,
+  setData,
+  currFile,
+  setFile
+}) {
+  const [visible, changeVisible] = useState(false)
+
   const didMount = useRef(false)
   const addons = [
     'closetag',
@@ -113,24 +137,35 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     'searchcursor'
   ]
 
-  useEffect(() => {
-    if (didMount.current) {
-      saveFile('test.js', data)
-    } else {
-      didMount.current = true
-    }
-  }, [data])
-
   return (
     <View style={styles.container}>
+      <DialogInput
+        isDialogVisible={visible}
+        title={'Save As'}
+        message={
+          'What do you want to save the file as? It will save to the Documents folder by default'
+        }
+        hintInput={'FileName.js'}
+        submitInput={(inputText) => {
+          saveFile(
+            RNFetchBlob.fs.dirs.DocumentDir + inputText,
+            data,
+            setFile,
+            changeVisible
+          )
+        }}
+        closeDialog={() => {
+          changeVisible(false)
+        }}
+      ></DialogInput>
       <WebView
         source={{ html: createHTML(theme, mode, extractAddons(addons)) }}
         style={styles.webView}
         scrollEnabled={false}
         ref={webviewRef}
         onMessage={({ nativeEvent: { data } }) => {
-          console.log(data)
           setData(data)
+          getFilename(data, currFile, setFile, changeVisible)
         }}
       />
     </View>

@@ -1,7 +1,7 @@
 const commands = {
   clear: `cm.setValue('')`,
   save: `window.ReactNativeWebView.postMessage(cm.getValue())`,
-  comment: `cm.toggleComment()`
+  comment: `cm.toggleComment()`,
 }
 
 const dispatch = (webviewRef) => (cmd) =>

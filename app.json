@@ -22,8 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "cews.com"
     },
-    "sdkVersion": "38.0.0"
+    "sdkVersion": "38.0.0",
+    "android": {
+      "package": "cews.com"
+    }
   }
 }
