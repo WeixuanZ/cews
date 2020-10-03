@@ -84,6 +84,18 @@ const App = () => {
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef, data)
 
+  const handleChangeMode = (mode) => {
+    setMode(mode);
+    const code = data.split('\n').join('\\n').split(`'`).join(`\\'`)
+    webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
+  }
+
+  const handleChangeTheme = (theme) => {
+    setTheme(theme);
+    const code = data.split('\n').join('\\n').split(`'`).join(`\\'`)
+    webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
+  }
+
   return (
     <View
       style={[
@@ -178,7 +190,7 @@ const App = () => {
               <SearchableList
                 data={Object.keys(cmColors.backgroundColor)}
                 value={theme}
-                handleChangeValue={setTheme}
+                handleChangeValue={handleChangeTheme}
                 isLightMode={isLightMode}
               />
             )}
@@ -188,7 +200,7 @@ const App = () => {
               <SearchableList
                 data={Object.keys(cmModes)}
                 value={mode}
-                handleChangeValue={setMode}
+                handleChangeValue={handleChangeMode}
                 isLightMode={isLightMode}
               />
             )}

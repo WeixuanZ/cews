@@ -93,7 +93,7 @@ const createHTML = (theme, mode, addons) => `
 
 const saveFile = async (fileUri, text, setFile, changeVisible) => {
   changeVisible(false)
-  if(Platform.OS != 'ios') {
+  if (Platform.OS != 'ios') {
     setFile(fileUri)
   }
   console.log(fileUri)
@@ -150,7 +150,9 @@ export default function CodeEditArea({
         hintInput={'FileName.js'}
         submitInput={(inputText) => {
           saveFile(
-            Platform.OS === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir + '/' + inputText : '/storage/emulated/0/Documents' + '/' + inputText,
+            Platform.OS === 'ios'
+              ? RNFetchBlob.fs.dirs.DocumentDir + '/' + inputText
+              : '/storage/emulated/0/Documents' + '/' + inputText,
             data,
             setFile,
             changeVisible
