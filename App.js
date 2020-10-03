@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Platform } from 'react-native'
 import {
   NavigationContainer,
   DefaultTheme,
@@ -24,31 +24,49 @@ import DocumentPicker from 'react-native-document-picker'
 
 const Stack = createStackNavigator()
 
-const loadData = async (filename, setData, webviewRef, setFile) => {
+const loadData = async (setData, webviewRef, setFile) => {
   try {
     const file = await DocumentPicker.pick({})
-    RNFetchBlob.fs
-      .stat(file.uri)
-      .then((stats) => {
-        const truePath = stats.path
-        RNFetchBlob.fs
+    if(Platform.OS === 'ios') {
+      const truePath = file.uri.substr(7, )
+      RNFetchBlob.fs
           .readFile(truePath, 'utf8')
           .then((res) => {
-            console.log(truePath)
             setData(res)
-            setFile(truePath)
-            const code = res.split('\n').join('\\n')
+            const code = res.split('\n').join('\\n').split(`'`).join(`\\'`)
+            console.log(res)
             webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
           })
           .catch((err) => {
             console.log(err.message, err.code)
           })
-      })
-      .catch((err) => {})
+    }
+    else {
+      RNFetchBlob.fs
+        .stat(file.uri)
+        .then((stats) => {
+          console.log(stats)
+          const truePath = stats.path
+          RNFetchBlob.fs
+            .readFile(truePath, 'utf8')
+            .then((res) => {
+              console.log(truePath)
+              setData(res)
+              setFile(truePath)
+              const code = res.split('\n').join('\\n')
+              webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
+            })
+            .catch((err) => {
+              console.log(err.message, err.code)
+            })
+        })
+        .catch((err) => {console.error(err)})
+    }
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
       // User cancelled the picker, exit any dialogs or menus and move on
     } else {
+      console.error(err)
       throw err
     }
   }
@@ -87,7 +105,7 @@ const App = () => {
                     title="openFile"
                     iconName="create-new-folder"
                     onPress={() =>
-                      loadData('test.js', setData, webviewRef, setFile)
+                      loadData(setData, webviewRef, setFile)
                     }
                   />
                   <Item

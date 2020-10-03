@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Platform } from 'react-native'
 import WebView from 'react-native-webview'
 
 import hljs from 'highlight.js' // const detectedLang = hljs.highlightAuto(codeStr).language
@@ -93,7 +93,9 @@ const createHTML = (theme, mode, addons) => `
 
 const saveFile = async (fileUri, text, setFile, changeVisible) => {
   changeVisible(false)
-  setFile(fileUri)
+  if(Platform.OS != 'ios') {
+    setFile(fileUri)
+  }
   console.log(fileUri)
   RNFetchBlob.fs
     .writeFile(fileUri, text, 'utf8')
@@ -148,7 +150,7 @@ export default function CodeEditArea({
         hintInput={'FileName.js'}
         submitInput={(inputText) => {
           saveFile(
-            RNFetchBlob.fs.dirs.DocumentDir + inputText,
+            Platform.OS === 'ios' ? RNFetchBlob.fs.dirs.DocumentDir + '/' + inputText : '/storage/emulated/0/Documents' + '/' + inputText,
             data,
             setFile,
             changeVisible

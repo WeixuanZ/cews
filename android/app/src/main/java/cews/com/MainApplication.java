@@ -7,8 +7,9 @@ import android.net.Uri;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
-import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
+import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
 import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -41,8 +42,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
             new DocumentPickerPackage(),
+            new RNFetchBlobPackage(),
             new DocumentPickerPackage(),
-            new RNPermissionsPackage(),
+            new DocumentPickerPackage(),
             new RNFSPackage(),
             new RNFetchBlobPackage(), // <---- add comma 
         new RNFSPackage() // <---------- add package 

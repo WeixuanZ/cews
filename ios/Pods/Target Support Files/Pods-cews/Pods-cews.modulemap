@@ -1,0 +1,6 @@
+module Pods_cews {
+  umbrella header "Pods-cews-umbrella.h"
+
+  export *
+  module * { export * }
+}
