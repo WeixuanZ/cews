@@ -84,18 +84,6 @@ const App = () => {
   const webviewRef = useRef(null)
   const cmDispatch = dispatch(webviewRef, data)
 
-  const handleChangeMode = (mode) => {
-    setMode(mode);
-    const code = data.split('\n').join('\\n').split(`'`).join(`\\'`)
-    webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
-  }
-
-  const handleChangeTheme = (theme) => {
-    setTheme(theme);
-    const code = data.split('\n').join('\\n').split(`'`).join(`\\'`)
-    webviewRef.current.injectJavaScript(`cm.setValue('${code}')`)
-  }
-
   return (
     <View
       style={[
