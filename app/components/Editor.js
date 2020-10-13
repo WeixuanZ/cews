@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, View, Platform } from 'react-native'
 import WebView from 'react-native-webview'
-
-import hljs from 'highlight.js' // const detectedLang = hljs.highlightAuto(codeStr).language
-
 import RNFetchBlob from 'rn-fetch-blob'
+import DialogInput from 'react-native-dialog-input'
 
 import cmScripts from '../assets/cmScripts.json'
 import cmThemes from '../assets/cmThemes.json'
@@ -12,8 +10,6 @@ import cmModes from '../assets/cmModes.json'
 import cmColors from '../assets/cmColors.json'
 import cmAddons from '../assets/cmAddons.json'
 import cmAdvancedAddons from '../assets/cmAdvancedAddons.js'
-
-import DialogInput from 'react-native-dialog-input'
 
 const extractAddons = (addons) =>
   addons.reduce((acc, val) => acc + ';' + cmAddons[val], '')
@@ -93,7 +89,7 @@ const createHTML = (theme, mode, addons) => `
 
 const saveFile = async (fileUri, text, setFile, changeVisible) => {
   changeVisible(false)
-  if (Platform.OS != 'ios') {
+  if (Platform.OS !== 'ios') {
     setFile(fileUri)
   }
   console.log(fileUri)
@@ -108,7 +104,7 @@ const saveFile = async (fileUri, text, setFile, changeVisible) => {
 }
 
 const getFilename = async (text, currFile, setFile, changeVisible) => {
-  if (currFile != '') {
+  if (currFile !== '') {
     saveFile(currFile, text, setFile, changeVisible)
   } else {
     changeVisible(true)
@@ -161,7 +157,7 @@ export default function CodeEditArea({
         closeDialog={() => {
           changeVisible(false)
         }}
-      ></DialogInput>
+      />
       <WebView
         source={{ html: createHTML(theme, mode, extractAddons(addons)) }}
         style={styles.webView}
