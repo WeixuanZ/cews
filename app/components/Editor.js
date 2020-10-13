@@ -19,7 +19,7 @@ const createHTML = (theme, mode, addons) => `
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.1, maximum-scale=1, user-scalable=yes">
 <style type="text/css">
   ${cmAdvancedAddons.advanced_dialog_css}
   ${cmAddons.fullscreen_css}
@@ -46,9 +46,9 @@ const createHTML = (theme, mode, addons) => `
 </script>
 <style type="text/css">
   html, body {
-    height: 100%;
+    height: 150%;
+    width: 150%;
     margin: 0;
-    overflow: hidden;
     color:${cmColors.color[theme]};
     background-color:${cmColors.backgroundColor[theme]};
   }
@@ -57,7 +57,9 @@ const createHTML = (theme, mode, addons) => `
   .CodeMirror {
     font-size: 12pt;
     line-height: 1.6;
-    width: 100%;
+    width: max-content;
+    min-width: 100px;
+    overflow: visible;
     height: 100%;
   }
   .cm-trailingspace {
@@ -125,8 +127,14 @@ export default function CodeEditArea({ theme, mode, webviewRef }) {
     <View style={styles.container}>
       <WebView
         source={{ html: createHTML(theme, mode, extractAddons(addons)) }}
-        style={styles.webView}
-        scrollEnabled={false}
+        style={[
+          styles.webView,
+          { backgroundColor: cmColors.backgroundColor[theme] }
+        ]}
+        overScrollMode={'never'}
+        bounces={false}
+        showsHorizontalScrollIndicator={false}
+        dataDetectorTypes={'link'}
         ref={webviewRef}
         onMessage={({ nativeEvent: { data } }) => {
           console.log(data)
